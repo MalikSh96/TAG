@@ -4,12 +4,10 @@ package textadventure;
 public class Event
 {
     private int life; //life of the player
-    private String monster;
     
-    public Event(int life, String monster)
+    public Event(int life)
     {
         this.life = life;   
-        this.monster = monster;
     }
     
     //applying the event
@@ -27,14 +25,4 @@ public class Event
     {
         this.life = life;
     }
-
-    public String getMonster() 
-    {
-        return monster;
-    }
-
-    public void setMonster(String monster) 
-    {
-        this.monster = monster;
-    } 
 }

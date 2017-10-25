@@ -37,12 +37,31 @@ public class GameCTRL implements Control
                 + "\nThe damage you can inflict is: " + player.getCurrentDamage());
         
         //Using a while loop to keep the game flowing until final destination is reached
-        while(player.getCurrentposition() != rooms.get(9) && player.getCurrentHealth() > 0 && quit == false) //as long as the current location is different from the final room, we keep playing
-        {
+        while(true)
+        { 
+            if(player.getCurrentposition() == rooms.get(9))
+            {
+                io.put("\n\u001B[32m" + "WINNER, CONGRATULATIONS!!!\n" 
+                    + "\u001B[32m" + "IT WAS A JOY HAVING YOU HERE, HOPE TO SEE YOU AGAIN SOON!\n");
+                break;
+            }
+            
+            if(player.getCurrentHealth() < 1)
+            {
+                io.put("\nYou died!");
+                break;
+            }
+            
+            /*if(quit == true)
+            {
+                io.put("\nYou chose to quit");
+                break;
+            }*/
+           
             io.put("\nMake a choice\n");
             ArrayList<String> maze = new ArrayList<>();
             
-            io.put("\nYour name is: " + name + "\nYour current health is: " + player.getCurrentHealth() 
+            io.put("\nYour name is: " + name + "\nYour current health is: " + player.getCurrentHealth()
                     + "\nThe damage you can inflict is: " + player.getCurrentDamage() + "\n");
             if(player.getCurrentposition().getNorth() != null)
             {
@@ -124,14 +143,14 @@ public class GameCTRL implements Control
                         
                     default:
                         break;
-            }
-        }
-        
-        if(player.getCurrentposition().equals(rooms.get(9)) && player.getCurrentHealth() > 0)
-        {
-            io.put("\n\u001B[32m" + "WINNER, CONGRATULATIONS!!!\n" 
+            } 
+        }   
+       /*     if(player.getCurrentposition().equals(rooms.get(9)))
+            {
+                io.put("\n\u001B[32m" + "WINNER, CONGRATULATIONS!!!\n" 
                     + "\u001B[32m" + "IT WAS A JOY HAVING YOU HERE, HOPE TO SEE YOU AGAIN SOON!\n");
-        }
+            }
+        */
     }
     
     @Override
@@ -174,10 +193,4 @@ public class GameCTRL implements Control
                 + "\u001B[34m" + "\nInput the given choices to advance in the game"
                 + "\u001B[34m" + "\n");
     }
-    
-    /*@Override
-    public void items()
-    {
-        
-    }*/ //NOT USED YET
 }

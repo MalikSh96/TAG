@@ -14,8 +14,7 @@ public class PlayerInfo
     {
         //Declaring the variables at start
         this.name = name;
-        this.currentposition = currentposition;
-        
+        this.currentposition = currentposition;    
     }
     
     public RoomInfo getCurrentposition() 
@@ -43,16 +42,6 @@ public class PlayerInfo
         return currentHealth;
     }
 
-    /*public int getMaxHealth() 
-    {
-        return maxHealth;
-    }
-
-    public void setMaxHealth(int maxHealth) 
-    {
-        this.maxHealth = maxHealth;
-    }*/
-
     public int getCurrentDamage() 
     {
         return currentDamage;
@@ -62,26 +51,6 @@ public class PlayerInfo
     {
         this.currentDamage = currentDamage;
     }
-
-   /* public int getMaxDamage() 
-    {
-        return maxDamage;
-    }
-
-    public void setMaxDamage(int maxDamage) 
-    {
-        this.maxDamage = maxDamage;
-    }
-
-    public int getLostLife() 
-    {
-        return lostLife;
-    }
-
-    public void setLostLife(int lostLife) 
-    {
-        this.lostLife = lostLife;
-    }*/
 
     public void setCurrentHealth(int currentHealth) 
     {
