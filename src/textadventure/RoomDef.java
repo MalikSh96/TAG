@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class RoomDef
 {    
     public void defRooms(ArrayList<RoomInfo> rooms)
-    {
+    {   
+        
         rooms.add(new RoomInfo("\nWelcome to the starting room, which is a safe spot" 
                 + "\nYes, somewhere nearby is colossal cave, where others have found fortunes in treasure and gold."
                 + "\nThough it is rumored that some who enter are never seen again."
@@ -13,44 +14,44 @@ public class RoomDef
                 + "\nyou are inside a building, a well house for a large spring"
                 + "\nThere are some keys on the ground here."
                 + "\nThis dungeon contains a BIG treasure, which has a lot of positive items and wishes, such as being eternal rich and alive" 
-                + "\n***TYPE IN YOUR EVENT***",
-                0, new Event(100, 10))); //Starting room, which is room 1
+                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                0, new Event(0, 0))); //Starting room, which is room 1, Event(..., ...) conatains the life damage added/inflicted and the damage added/inflicted
   
         rooms.add(new RoomInfo("\nWelcome into the entrance, be carefull, you may encounter hideous monsters ahead" 
-                + "\n***TYPE IN YOUR EVENT***",
-                1, new Event(-10, 10))); //room 2
+                + "\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                1, new Event(10, 20))); //room 2
         
         rooms.add(new RoomInfo("\nWelcome to the pool room, you can go for a swim... or not" 
-                + "\n***TYPE IN YOUR EVENT***",
-                2, new Event(-40, 10))); //room 3
+                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                2, new Event(-20, -10))); //room 3
         
         rooms.add(new RoomInfo("\nWelcome to the living room, there is an item on the floor, pick it up" 
-                + "\n***TYPE IN YOUR EVENT***",
-                3, new Event(0, 10))); //room 4
+                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                3, new Event(-30, 40))); //room 4
         
         rooms.add(new RoomInfo("\nWelcome to the bar, sit and grab a drink, but drinking may damage you" 
-                + "\n***TYPE IN YOUR EVENT***",
-                4, new Event(0, 10))); //room 5
+                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                4, new Event(10, 10))); //room 5
         
         rooms.add(new RoomInfo("\nWelcome to the bunny room, lots of cute bunnies, but harmful" 
-                + "\n***TYPE IN YOUR EVENT***",
-                5, new Event(0, 10))); //room 6
+                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                5, new Event(-50, -30))); //room 6
         
         rooms.add(new RoomInfo("\nWelcome to the magical room, this is where the magic happens, gains full health and a new items" 
-                + "\n***TYPE IN YOUR EVENT***",
-                6, new Event(0, 10))); //room 7
+                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                6, new Event(50, 40))); //room 7
         
         rooms.add(new RoomInfo("\nWelcome to the pillow fight room, lay down and relax, but you lose health no matter what" 
-                + "\n***TYPE IN YOUR EVENT***",
-                7, new Event(0, 10))); //room 8
+                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                7, new Event(-60, 10))); //room 8
         
         rooms.add(new RoomInfo("\nWelcome to the dungeon, fight the demon to continue" 
-                + "\n***FINAL BOSS FIGHT***",
-                8, new Event(-90, 10))); //room 9
+                + "\n\n" + "\u001B[31m" +"***FINAL BOSS FIGHT***",
+                8, new Event(-90, -40))); //room 9
         
         rooms.add(new RoomInfo("\nWell... hello there seems like you have found the" 
-                + "\u001B[31m" +  " BIG TREASURE!!! \n",
-                9, new Event(100, 10))); //room 10
+                + "\n" + "\u001B[31m" +"\u001B[31m" +  " BIG TREASURE!!! \n",
+                9, new Event(100, 100))); //room 10
 
         //Directing the rooms to its respective neighbor
         //Starting room direction
