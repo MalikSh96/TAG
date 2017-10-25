@@ -52,11 +52,6 @@ public class GameCTRL implements Control
                 break;
             }
             
-            /*if(quit == true)
-            {
-                io.put("\nYou chose to quit");
-                break;
-            }*/
            
             io.put("\nMake a choice\n");
             ArrayList<String> maze = new ArrayList<>();
@@ -94,42 +89,46 @@ public class GameCTRL implements Control
                     {
                         player.setCurrentposition(player.getCurrentposition().getNorth());
                         io.put(player.getCurrentposition().getRoomEventText());
+                        player.getCurrentposition().getEvents().applyEvent(player);
                     }
                     break;
                     
                 case "South":
                         if (player.getCurrentposition().getSouth() == null) 
                         {
-                            io.put("Invalid choice, try input a new one\n");
+                            //io.put("Invalid choice, try input a new one\n"); <--NOT USED
                         } 
                         else 
                         {
                             player.setCurrentposition(player.getCurrentposition().getSouth());
                             io.put(player.getCurrentposition().getRoomEventText());
+                            player.getCurrentposition().getEvents().applyEvent(player);
                         }
                     break;
                     
                 case "West":
                         if (player.getCurrentposition().getWest() == null) 
                         {
-                            io.put("Invalid choice, try input a new one\n");
+                            //io.put("Invalid choice, try input a new one\n"); <--NOT USED ?
                         } 
                         else 
                         {
                             player.setCurrentposition(player.getCurrentposition().getWest());
                             io.put(player.getCurrentposition().getRoomEventText());
+                            player.getCurrentposition().getEvents().applyEvent(player);
                         }
                         break;
                         
                     case "East":
                         if (player.getCurrentposition().getEast() == null)
                         {
-                            io.put("Invalid choice, try input a new one\n");
+                            //io.put("Invalid choice, try input a new one\n"); <--NOT USED?
                         } 
                         else 
                         {
                             player.setCurrentposition(player.getCurrentposition().getEast());
                             io.put(player.getCurrentposition().getRoomEventText()); 
+                            player.getCurrentposition().getEvents().applyEvent(player);
                         }
                         break;
                     case "Help":
@@ -145,12 +144,6 @@ public class GameCTRL implements Control
                         break;
             } 
         }   
-       /*     if(player.getCurrentposition().equals(rooms.get(9)))
-            {
-                io.put("\n\u001B[32m" + "WINNER, CONGRATULATIONS!!!\n" 
-                    + "\u001B[32m" + "IT WAS A JOY HAVING YOU HERE, HOPE TO SEE YOU AGAIN SOON!\n");
-            }
-        */
     }
     
     @Override
