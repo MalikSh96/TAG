@@ -2,6 +2,7 @@ package textadventure;
 
 import java.util.ArrayList;
 import textio.*;
+import java.util.Random;
 
 //Where the gaming happens
 public class GameCTRL implements Control
@@ -9,6 +10,8 @@ public class GameCTRL implements Control
     private ArrayList<RoomInfo> rooms = new ArrayList<>(); //arraylist to store the roominfo
     private TextIO io = new TextIO(new SysTextIO());
     private boolean quit = false; //false at start to be able to play the game
+    private Random rnd = new Random(); //to randomize the startlocation of the monster
+    private Monsters mo; //startlocation for monster is random, can't be the starting room
 
     @Override
     public void play() 
@@ -16,7 +19,8 @@ public class GameCTRL implements Control
         //Definition of rooms
         RoomDef rd = new RoomDef();
         rd.defRooms(rooms);
-        PlayerInfo player = new PlayerInfo("playerName", rooms.get(0));    
+        this.mo = new Monsters("AAA", "BBB", rooms.get(rnd.nextInt(9)+2));
+        PlayerInfo player = new PlayerInfo("playerName", rooms.get(0));
         
         //Introduction to the game
         io.put("\u001B[31m" + "Welcome to adventure!\n"); 
@@ -39,6 +43,7 @@ public class GameCTRL implements Control
         //Using a while loop to keep the game flowing until final destination is reached
         while(true)
         { 
+            //If these 3 if statements below becomes true, the game stops, otherwise it will continue
             if(player.getCurrentposition() == rooms.get(9))
             {
                 io.put("\n\u001B[32m" + "WINNER, CONGRATULATIONS!!!\n" 
@@ -94,7 +99,17 @@ public class GameCTRL implements Control
                     {
                         player.setCurrentposition(player.getCurrentposition().getNorth());
                         io.put(player.getCurrentposition().getRoomEventText());
-                        player.getCurrentposition().getEvents().applyEvent(player);
+                        if(mo.getCurrentPosition() == player.getCurrentposition())
+                        {
+                            player.setCurrentHealth(0);
+                            player.setCurrentDamage(0);
+                            io.put("\n" + "\u001B[31m" + "MONSTER");
+                            return;
+                        }
+                        else
+                        {
+                            player.getCurrentposition().getEvents().applyEvent(player);
+                        }
                     }
                     break;
                     
@@ -107,7 +122,17 @@ public class GameCTRL implements Control
                         {
                             player.setCurrentposition(player.getCurrentposition().getSouth());
                             io.put(player.getCurrentposition().getRoomEventText());
-                            player.getCurrentposition().getEvents().applyEvent(player);
+                            if(mo.getCurrentPosition() == player.getCurrentposition())
+                            {
+                                player.setCurrentHealth(0);
+                                player.setCurrentDamage(0);
+                                io.put("\n" + "\u001B[31m" + "MONSTER");
+                                return;
+                            }
+                            else
+                            {
+                                player.getCurrentposition().getEvents().applyEvent(player);
+                            }
                         }
                     break;
                     
@@ -120,7 +145,17 @@ public class GameCTRL implements Control
                         {
                             player.setCurrentposition(player.getCurrentposition().getWest());
                             io.put(player.getCurrentposition().getRoomEventText());
-                            player.getCurrentposition().getEvents().applyEvent(player);
+                            if(mo.getCurrentPosition() == player.getCurrentposition())
+                            {
+                                player.setCurrentHealth(0);
+                                player.setCurrentDamage(0);
+                                io.put("\n" + "\u001B[31m" + "MONSTER");
+                                return;
+                            }
+                            else
+                            {
+                                player.getCurrentposition().getEvents().applyEvent(player);
+                            }
                         }
                         break;
                         
@@ -133,7 +168,17 @@ public class GameCTRL implements Control
                         {
                             player.setCurrentposition(player.getCurrentposition().getEast());
                             io.put(player.getCurrentposition().getRoomEventText()); 
-                            player.getCurrentposition().getEvents().applyEvent(player);
+                            if(mo.getCurrentPosition() == player.getCurrentposition())
+                            {
+                                player.setCurrentHealth(0);
+                                player.setCurrentDamage(0);
+                                io.put("\n" + "\u001B[31m" + "MONSTER");
+                                return;
+                            }
+                            else
+                            {
+                                player.getCurrentposition().getEvents().applyEvent(player);
+                            }
                         }
                         break;
                     case "Help":
@@ -142,8 +187,7 @@ public class GameCTRL implements Control
                         
                     case "Quit":
                         io.put("\u001B[31m" + "You have chosen to quit the game\n");
-                        quit = true;
-                        break;
+                        return;
                         
                     default:
                         break;
@@ -190,5 +234,10 @@ public class GameCTRL implements Control
                 + "\u001B[34m" + "\nOn your screen, you see the possible choices you have"
                 + "\u001B[34m" + "\nInput the given choices to advance in the game"
                 + "\u001B[34m" + "\n");
+    }
+
+    void end() 
+    {
+        io.put("\nYou died by either having 0 health, or getting killed by the monster");
     }
 }

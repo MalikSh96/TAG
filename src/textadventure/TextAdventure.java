@@ -6,5 +6,6 @@ public class TextAdventure
     {
         GameCTRL game = new GameCTRL();
         game.play();
+        game.end();
     }
 }

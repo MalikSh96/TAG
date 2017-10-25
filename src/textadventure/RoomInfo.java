@@ -7,7 +7,7 @@ public class RoomInfo
     private int roomEvent;
     private RoomInfo north, south, east, west;
     private String enterRoom;
-    private Event events; //eve is short for event
+    private Event events;
 
     RoomInfo(String roomEventText, int roomNumber, Event events) 
     {
@@ -15,7 +15,6 @@ public class RoomInfo
         this.roomNumber = roomNumber;
         this.events = events;
     }
-    
     
     public RoomInfo getNorth() 
     {
@@ -89,5 +88,5 @@ public class RoomInfo
     public void setEvents(Event events) 
     {
         this.events = events;
-    }  
+    } 
 }

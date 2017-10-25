@@ -6,7 +6,6 @@ public class Monsters implements Enemy
     private String backgroundStory;
     private RoomInfo currentPosition;
     
-
     public Monsters(String description, String backgroundStory, RoomInfo currentPosition) 
     {
         this.description = description;
