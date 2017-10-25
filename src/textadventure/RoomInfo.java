@@ -1,5 +1,7 @@
 package textadventure;
 
+import java.util.ArrayList;
+
 public class RoomInfo 
 {   
     private String roomEventText;
@@ -7,7 +9,8 @@ public class RoomInfo
     private int roomEvent;
     private RoomInfo north, south, east, west;
     private String enterRoom;
-    private Event events;
+    private Event events; 
+    private ArrayList<items> items = new ArrayList<>();
 
     RoomInfo(String roomEventText, int roomNumber, Event events) 
     {
@@ -90,6 +93,7 @@ public class RoomInfo
         this.events = events;
     }  
 
+
     void addWeapon(Weapon weapon) {
        
     }
@@ -97,5 +101,12 @@ public class RoomInfo
     void addPotion(Potion potion) {
         
     }
+
+    public void addItem(items item) {
+       items.add(item);
+    }
+
+  
+
 
 }

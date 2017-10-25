@@ -89,5 +89,8 @@ public class RoomDef
         //room 9 directions
         rooms.get(8).setWest(rooms.get(9)); //room 9 west leads to room 10, WINNER
         rooms.get(8).setEast(rooms.get(7)); //room 9 east leads to room 8
+        
+        rooms.get(7).addItem(new Weapon("Sword", "Is a sword", 15));
+        rooms.get(7).addItem(new Potion("potion","description", 10));
     }
 }
