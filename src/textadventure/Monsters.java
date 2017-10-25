@@ -38,10 +38,18 @@ public class Monsters implements Enemy
     {
         
     }
+    
+    @Override
+    public void Movement() 
+    {
+        GameCTRL move = new GameCTRL();
+        move.play();
+        
+    }
 
     /*@Override
     public void miniMonsters() 
     {
         
-    }*///NOT USED YET, LATER
+    }*///NOT USED YET, LATEr
 }
