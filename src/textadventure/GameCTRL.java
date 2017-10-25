@@ -48,8 +48,13 @@ public class GameCTRL implements Control
             
             if(player.getCurrentHealth() < 1)
             {
-                io.put("\nYou died!");
+                io.put("\n" + "\u001B[31m" + "You died!\n");
                 break;
+            }
+            
+            if(quit == true)
+            {
+                break; //stops the game if quit becomes true
             }
             
            
