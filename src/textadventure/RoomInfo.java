@@ -90,4 +90,13 @@ public class RoomInfo
     {
         this.events = events;
     }  
+
+    void addWeapon(Weapon weapon) {
+       
+    }
+
+    void addPotion(Potion potion) {
+        
+    }
+
 }
