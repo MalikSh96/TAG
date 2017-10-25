@@ -1,15 +1,48 @@
 package textadventure;
 
-public class Monsters 
+public class Monsters implements Enemy
 {
-    String description, backgroundStory;
-    int height, width;
+    private String description; 
+    private String backgroundStory;
+    private RoomInfo currentPosition;
+    
 
-    public Monsters(String description, String backgroundStory, int height, int width) 
+    public Monsters(String description, String backgroundStory, RoomInfo currentPosition) 
     {
         this.description = description;
         this.backgroundStory = backgroundStory;
-        this.height = height;
-        this.width = width;
+        this.currentPosition = currentPosition;
     }
+
+    public String getDescription() 
+    {
+        return description;
+    }
+
+    public String getBackgroundStory() 
+    {
+        return backgroundStory;
+    }
+
+    public RoomInfo getCurrentPosition() 
+    {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(RoomInfo currentPosition) 
+    {
+        this.currentPosition = currentPosition;
+    }
+    
+    @Override
+    public void finalBoss() 
+    {
+        
+    }
+
+    /*@Override
+    public void miniMonsters() 
+    {
+        
+    }*///NOT USED YET, LATER
 }
