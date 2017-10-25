@@ -19,8 +19,9 @@ public class GameCTRL implements Control
         //Definition of rooms
         RoomDef rd = new RoomDef();
         rd.defRooms(rooms);
-        this.mo = new Monsters("AAA", "BBB", rooms.get(rnd.nextInt(9)+2));
+        this.mo = new Monsters("AAA", "BBB", rooms.get(rnd.nextInt(8)+2));
         PlayerInfo player = new PlayerInfo("playerName", rooms.get(0));
+        
         
         //Introduction to the game
         io.put("\u001B[31m" + "Welcome to adventure!\n"); 
@@ -104,7 +105,7 @@ public class GameCTRL implements Control
                             player.setCurrentHealth(0);
                             player.setCurrentDamage(0);
                             io.put("\n" + "\u001B[31m" + "MONSTER");
-                            return;
+                            break;
                         }
                         else
                         {
@@ -192,7 +193,9 @@ public class GameCTRL implements Control
                     default:
                         break;
             } 
-        }   
+        mo.move();    
+        }
+        
     }
     
     @Override
@@ -238,6 +241,6 @@ public class GameCTRL implements Control
 
     void end() 
     {
-        io.put("\nYou died by either having 0 health, or getting killed by the monster");
+        io.put("\nYou died by either having 0 health, or getting killed by the boss\n");
     }
 }

@@ -1,6 +1,6 @@
 package textadventure;
 
-public class PlayerInfo implements Movement
+public class PlayerInfo
 {
     private String name;
     private int currentHealth = 100;

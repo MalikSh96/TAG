@@ -93,20 +93,18 @@ public class RoomInfo
         this.events = events;
     }  
 
-
-    void addWeapon(Weapon weapon) {
+    void addWeapon(Weapon weapon) 
+    {
        
     }
 
-    void addPotion(Potion potion) {
+    void addPotion(Potion potion) 
+    {
         
     }
 
-    public void addItem(items item) {
+    public void addItem(items item) 
+    {
        items.add(item);
     }
-
-  
-
-
 }
