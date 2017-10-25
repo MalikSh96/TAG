@@ -14,43 +14,43 @@ public class RoomDef
                 + "\nThere are some keys on the ground here."
                 + "\nThis dungeon contains a BIG treasure, which has a lot of positive items and wishes, such as being eternal rich and alive" 
                 + "\n***TYPE IN YOUR EVENT***",
-                0, new Event(100))); //Starting room, which is room 1
+                0, new Event(100, 10))); //Starting room, which is room 1
   
         rooms.add(new RoomInfo("\nWelcome into the entrance, be carefull, you may encounter hideous monsters ahead" 
                 + "\n***TYPE IN YOUR EVENT***",
-                1, new Event(-10))); //room 2
+                1, new Event(-10, 10))); //room 2
         
         rooms.add(new RoomInfo("\nWelcome to the pool room, you can go for a swim... or not" 
                 + "\n***TYPE IN YOUR EVENT***",
-                2, new Event(-40))); //room 3
+                2, new Event(-40, 10))); //room 3
         
         rooms.add(new RoomInfo("\nWelcome to the living room, there is an item on the floor, pick it up" 
                 + "\n***TYPE IN YOUR EVENT***",
-                3, new Event(0))); //room 4
+                3, new Event(0, 10))); //room 4
         
         rooms.add(new RoomInfo("\nWelcome to the bar, sit and grab a drink, but drinking may damage you" 
                 + "\n***TYPE IN YOUR EVENT***",
-                4, new Event(0))); //room 5
+                4, new Event(0, 10))); //room 5
         
         rooms.add(new RoomInfo("\nWelcome to the bunny room, lots of cute bunnies, but harmful" 
                 + "\n***TYPE IN YOUR EVENT***",
-                5, new Event(0))); //room 6
+                5, new Event(0, 10))); //room 6
         
         rooms.add(new RoomInfo("\nWelcome to the magical room, this is where the magic happens, gains full health and a new items" 
                 + "\n***TYPE IN YOUR EVENT***",
-                6, new Event(0))); //room 7
+                6, new Event(0, 10))); //room 7
         
         rooms.add(new RoomInfo("\nWelcome to the pillow fight room, lay down and relax, but you lose health no matter what" 
                 + "\n***TYPE IN YOUR EVENT***",
-                7, new Event(0))); //room 8
+                7, new Event(0, 10))); //room 8
         
         rooms.add(new RoomInfo("\nWelcome to the dungeon, fight the demon to continue" 
                 + "\n***FINAL BOSS FIGHT***",
-                8, new Event(-90))); //room 9
+                8, new Event(-90, 10))); //room 9
         
         rooms.add(new RoomInfo("\nWell... hello there seems like you have found the" 
                 + "\u001B[31m" +  " BIG TREASURE!!! \n",
-                9, new Event(100))); //room 10
+                9, new Event(100, 10))); //room 10
 
         //Directing the rooms to its respective neighbor
         //Starting room direction
