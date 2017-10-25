@@ -5,8 +5,7 @@ import java.util.ArrayList;
 public class RoomDef
 {    
     public void defRooms(ArrayList<RoomInfo> rooms)
-    {   
-        
+    {     
         rooms.add(new RoomInfo("\nWelcome to the starting room, which is a safe spot" 
                 + "\nYes, somewhere nearby is colossal cave, where others have found fortunes in treasure and gold."
                 + "\nThough it is rumored that some who enter are never seen again."
