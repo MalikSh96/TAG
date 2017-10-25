@@ -1,6 +1,6 @@
 package textadventure;
 
-public class Monsters implements Enemy
+public class Monsters implements Movement
 {
     private String description; 
     private String backgroundStory;
@@ -33,11 +33,9 @@ public class Monsters implements Enemy
         this.currentPosition = currentPosition;
     }
     
-    @Override
-    public void finalBoss() 
-    {
-        
-    }
+   
+  
+    
     
     /*@Override
     public void miniMonsters() 
