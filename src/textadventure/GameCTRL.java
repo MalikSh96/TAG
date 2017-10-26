@@ -18,9 +18,8 @@ public class GameCTRL implements Control
         //Definition of rooms
         RoomDef rd = new RoomDef(rooms);
         rd.defRooms();
-        Monster mo = new Monster("MONSTERNAME", "HISTORY", rooms.get(8));
+        Monster mo = new Monster("MONSTERNAME", "HISTORY", rooms.get(rnd.nextInt(8) +2));
         PlayerInfo player = new PlayerInfo("playerName", rooms.get(0));
-        
         
         //Introduction to the game
         io.put("\u001B[31m" + "Welcome to adventure!\n"); 
@@ -34,8 +33,7 @@ public class GameCTRL implements Control
         io.put("\nEnter age");
         int age = io.getInteger();
         io.put("you are " + age + "\n");
-        
-        
+                
         //The game starts here
         io.put(player.getCurrentposition().getRoomEventText() + "\n\nName is: " + name +  "\nYour health is: " + player.getCurrentHealth() 
                 + "\nThe damage you can inflict is: " + player.getCurrentDamage());
@@ -49,25 +47,22 @@ public class GameCTRL implements Control
                 io.put("\n\u001B[32m" + "WINNER, CONGRATULATIONS!!!\n" 
                     + "\u001B[32m" + "IT WAS A JOY HAVING YOU HERE, HOPE TO SEE YOU AGAIN SOON!\n");
                 break;
-            }
-            
+            }         
             if(player.getCurrentHealth() < 1)
             {
                 io.put("\n" + "\u001B[31m" + "You died!\n");
                 break;
-            }
-            
+            }          
             if(quit == true)
             {
                 break; //stops the game if quit becomes true
             }
-            
-           
+                      
             io.put("\nMake a choice player!");
-            ArrayList<String> maze = new ArrayList<>();
-            
+            ArrayList<String> maze = new ArrayList<>();          
             io.put("\nYour name is: " + name + "\nYour current health is: " + player.getCurrentHealth()
                     + "\nThe damage you can inflict is: " + player.getCurrentDamage() + "\n");
+            
             if(player.getCurrentposition().getNorth() != null)
             {
                 maze.add("North");
@@ -193,7 +188,11 @@ public class GameCTRL implements Control
                         break;
             } 
         mo.move();
-        }      
+        }       
+        //Getting the scores and comparing them
+        HighScore high = new HighScore();
+        high.addScore(player.getCurrentHealth());
+        System.out.println(high);
     }
     
     @Override
@@ -231,14 +230,11 @@ public class GameCTRL implements Control
                 + "\u001B[34m" + "\nIf you encounter an invalid choice, it might be because you have nothing at the direction you tried to input"
                 + "\u001B[34m" + "\n");*/ // <-- advanced help function 
         
-        io.put("\u001B[34m" + "Here is your hints" 
+        io.put("\n" + "\u001B[34m" + "Here is your hints" 
                 + "\u001B[34m" + "\nOn your screen, you see the possible choices you have"
                 + "\u001B[34m" + "\nInput the given choices to advance in the game"
                 + "\u001B[34m" + "\n");
     }
-
-    void end() 
-    {
-        io.put("\nYou died by either having 0 health, or getting killed by the boss\n");
-    }
+    
+    
 }

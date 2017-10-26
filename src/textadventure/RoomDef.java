@@ -24,39 +24,39 @@ public class RoomDef
                 0, new Event(0, 0))); //Starting room, which is room 1, Event(..., ...) conatains the life damage added/inflicted and the damage added/inflicted
   
         rooms.add(new RoomInfo("\nWelcome into the entrance, be carefull, you may encounter hideous monsters ahead" 
-                + "\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                1, new Event(0, 0))); //room 2
+                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                1, new Event(10, 0))); //room 2
         
         rooms.add(new RoomInfo("\nWelcome to the pool room, you can go for a swim... or not" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                2, new Event(0, 0))); //room 3
+                2, new Event(20, 0))); //room 3
         
         rooms.add(new RoomInfo("\nWelcome to the living room, there is an item on the floor, pick it up" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                3, new Event(0, 0))); //room 4
+                3, new Event(-30, 0))); //room 4
         
         rooms.add(new RoomInfo("\nWelcome to the bar, sit and grab a drink, but drinking may damage you" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                4, new Event(0, 0))); //room 5
+                4, new Event(40, 0))); //room 5
         
         rooms.add(new RoomInfo("\nWelcome to the bunny room, lots of cute bunnies, but harmful" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                5, new Event(0, 0))); //room 6
+                5, new Event(-50, 0))); //room 6
         
         rooms.add(new RoomInfo("\nWelcome to the magical room, this is where the magic happens, gains full health and a new items" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                6, new Event(0, 0))); //room 7
+                6, new Event(60, 0))); //room 7
         
         rooms.add(new RoomInfo("\nWelcome to the pillow fight room, lay down and relax, but you lose health no matter what" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                7, new Event(0, 0))); //room 8
+                7, new Event(80, 0))); //room 8
         
         rooms.add(new RoomInfo("\nWelcome to the dungeon, fight the demon to continue" 
                 + "\n\n" + "\u001B[31m" +"***FINAL BOSS FIGHT***",
-                8, new Event(0, 00))); //room 9
+                8, new Event(-35, 00))); //room 9
         
         rooms.add(new RoomInfo("\nWell... hello there seems like you have found the" 
-                + "\n" + "\u001B[31m" +"\u001B[31m" +  " BIG TREASURE!!! \n",
+                + "\n" + "\u001B[31m" +"\u001B[31m" +  "BIG TREASURE!!! \n",
                 9, new Event(100, 100))); //room 10
 
         //Directing the rooms to its respective neighbor(s)

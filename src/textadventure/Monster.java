@@ -28,13 +28,13 @@ public class Monster
         while(true)
         {
             direction = rnd.nextInt(4) + 1;
-            System.out.println(direction);
+            //System.out.println(direction); //<-- prints out what number the rnd gave
             if(move(direction) == true)
             {
                 break;
             }
         }           
-            System.out.println("Moved to " + direction); //<-- prints out direction the monster moved, for test
+            //System.out.println("Moved to " + direction); //<-- prints out direction the monster moved, for testing if it works
     }
     
     private boolean move(int rand)
@@ -45,7 +45,7 @@ public class Monster
                 if(getCurrentPosition().getNorth() != null)
                 {
                     setCurrentPosition(getCurrentPosition().getNorth());
-                    System.out.println("\n\nMONSTER MOVED NORTH");
+                    System.out.println("\nMONSTER MOVED NORTH");
                     return true;
                 }
                 return false;
@@ -53,7 +53,7 @@ public class Monster
                 if(getCurrentPosition().getSouth() != null)
                 {
                     setCurrentPosition(getCurrentPosition().getSouth());
-                    System.out.println("\n\nMONSTER MOVED SOUTH");
+                    System.out.println("\nMONSTER MOVED SOUTH");
                     return true;
                 }
                 return false;
@@ -61,7 +61,7 @@ public class Monster
                 if(getCurrentPosition().getWest() != null)
                 {
                     setCurrentPosition(getCurrentPosition().getWest());
-                    System.out.println("\n\nMONSTER MOVED WEST");
+                    System.out.println("\nMONSTER MOVED WEST");
                     return true;
                 }
                 return false;
@@ -69,7 +69,7 @@ public class Monster
                 if(getCurrentPosition().getEast() != null)
                 {
                     setCurrentPosition(getCurrentPosition().getEast());
-                    System.out.println("\n\nMONSTER MOVED EAST");
+                    System.out.println("\nMONSTER MOVED EAST");
                     return true;
                 }
                 return false;
