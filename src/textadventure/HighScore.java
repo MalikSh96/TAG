@@ -1,32 +1,73 @@
 package textadventure;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 //Gets the scores and sorts them, highscores are based of highest HP
-public class HighScore 
-{
-    private ArrayList<Integer> score = new ArrayList<>();
-    private ArrayList<String> score_names = new ArrayList<>(); //find out a solution to this
-    
+public class HighScore {
+
+    private HashMap<String, Integer> scores = new HashMap<>();
+    //private ArrayList<Integer> score = new ArrayList<>();
+    //private ArrayList<String> score_names = new ArrayList<>(); //find out a solution to this
+
     public HighScore() 
     {
         System.out.println("This is the highscores: ");
     }
-    
-    public void addScore(int NEW_HIGHSCORE)
+
+    public void addScore(String name, int score) 
     {
-        score.add(NEW_HIGHSCORE);
-        score.sort(Comparator.naturalOrder());
-        for(int i : score)
-        {
-            System.out.println(i);
-        }           
+        scores.put(name, score);
     }
-    
-    @Override
-    public String toString() 
+
+    public String getBestName() 
     {
-        return "Highscores are: " + score;
-    }    
+        if (scores.isEmpty()) 
+        {
+            throw new IllegalStateException();
+        }
+
+        String bestName = null;
+        int bestScore = Integer.MIN_VALUE;
+        for(Map.Entry<String, Integer> entry : scores.entrySet()) 
+        {
+            if (bestName == null) 
+            {
+                bestName = entry.getKey();
+                bestScore = entry.getValue();
+            }
+            if (entry.getValue() > bestScore) 
+            {
+                bestName = entry.getKey();
+                bestScore = entry.getValue();
+            }
+        }
+        return bestName;
+    }
+
+    public int getBestScore() 
+    {
+        if (scores.isEmpty()) 
+        {
+            throw new IllegalStateException();
+        }
+
+        String bestName = null;
+        int bestScore = Integer.MIN_VALUE;
+        for(Map.Entry<String, Integer> entry : scores.entrySet()) 
+        {
+            if (bestName == null) 
+            {
+                bestName = entry.getKey();
+                bestScore = entry.getValue();
+            }
+            if (entry.getValue() > bestScore) 
+            {
+                bestName = entry.getKey();
+                bestScore = entry.getValue();
+            }
+        }
+        return bestScore;
+    }
 }

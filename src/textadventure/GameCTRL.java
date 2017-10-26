@@ -15,11 +15,12 @@ public class GameCTRL implements Control
     @Override
     public void play() 
     {
-        //Definition of rooms
+        io.put("***To sign in to play, enter name!***");
+        //Definition of rooms      
         RoomDef rd = new RoomDef(rooms);
         rd.defRooms();
         Monster mo = new Monster("MONSTERNAME", "HISTORY", rooms.get(rnd.nextInt(8) +2));
-        PlayerInfo player = new PlayerInfo("playerName", rooms.get(0));
+        PlayerInfo player = new PlayerInfo(io.get(), rooms.get(0));
         
         //Introduction to the game
         io.put("\u001B[31m" + "Welcome to adventure!\n"); 
@@ -27,13 +28,13 @@ public class GameCTRL implements Control
         printInfo();
         
         //Signing in to play the game
-        io.put("Enter name please");
+        io.put("Enter gamertag please");
         String name = io.get();
         io.put("Welcome " + name + ", we are looking forward to play with you\n");
         io.put("\nEnter age");
         int age = io.getInteger();
         io.put("you are " + age + "\n");
-                
+        
         //The game starts here
         io.put(player.getCurrentposition().getRoomEventText() + "\n\nName is: " + name +  "\nYour health is: " + player.getCurrentHealth() 
                 + "\nThe damage you can inflict is: " + player.getCurrentDamage());
@@ -190,9 +191,9 @@ public class GameCTRL implements Control
         mo.move();
         }       
         //Getting the scores and comparing them
-        HighScore high = new HighScore();
-        high.addScore(player.getCurrentHealth());
-        System.out.println(high);
+        HighScore highscores = new HighScore();
+        highscores.addScore(player.getName(), player.getCurrentHealth());
+        System.out.println(highscores.getBestName() + ": " + highscores.getBestScore());
     }
     
     @Override
