@@ -2,13 +2,11 @@ package textadventure;
 
 import java.util.ArrayList;
 
-public class RoomInfo 
+public class RoomInfo /*implements mazeRooms*/
 {   
     private String roomEventText;
     private int roomNumber;
-    private int roomEvent;
     private RoomInfo north, south, east, west;
-    private String enterRoom;
     private Event events; 
     private ArrayList<items> items = new ArrayList<>();
 
@@ -63,25 +61,10 @@ public class RoomInfo
         return roomEventText;
     }
 
-    public int getRoomEvent() 
-    {
-        return roomEvent;
-    }
-
     public int getRoomNumber() 
     {
         return roomNumber;
     }  
-    
-    public String getEnterRoom() //not used as of now
-    {
-        return enterRoom;
-    }
-
-    public void setEnterRoom(String enterRoom) //not used as of now
-    {
-        this.enterRoom = enterRoom;
-    }
 
     public Event getEvents() 
     {

@@ -7,5 +7,6 @@ public class TextAdventure
         GameCTRL game = new GameCTRL();
         game.play();
         game.end();
+        Monster monst = new Monster("NAME", "HISTORY", new RoomInfo("", -100, new Event(0, 0)));
     }
 }

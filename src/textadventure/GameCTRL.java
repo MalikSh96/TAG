@@ -11,15 +11,14 @@ public class GameCTRL implements Control
     private TextIO io = new TextIO(new SysTextIO());
     private boolean quit = false; //false at start to be able to play the game
     private Random rnd = new Random(); //to randomize the startlocation of the monster
-    private Monsters mo; //startlocation for monster is random, can't be the starting room
 
     @Override
     public void play() 
     {
         //Definition of rooms
-        RoomDef rd = new RoomDef();
-        rd.defRooms(rooms);
-        this.mo = new Monsters("AAA", "BBB", rooms.get(rnd.nextInt(8)+2));
+        RoomDef rd = new RoomDef(rooms);
+        rd.defRooms();
+        Monster mo = new Monster("MONSTERNAME", "HISTORY", rooms.get(8));
         PlayerInfo player = new PlayerInfo("playerName", rooms.get(0));
         
         
@@ -64,7 +63,7 @@ public class GameCTRL implements Control
             }
             
            
-            io.put("\nMake a choice\n");
+            io.put("\nMake a choice player!");
             ArrayList<String> maze = new ArrayList<>();
             
             io.put("\nYour name is: " + name + "\nYour current health is: " + player.getCurrentHealth()
@@ -88,7 +87,7 @@ public class GameCTRL implements Control
             maze.add("Help");
             maze.add("Quit");
             
-            int result = io.select("You have these choices", maze, "What do you wanna do");
+            int result = io.select("You have these choices", maze, "What is your choice?");
             switch(maze.get(result)) 
             {
                 case "North":
@@ -104,7 +103,7 @@ public class GameCTRL implements Control
                         {
                             player.setCurrentHealth(0);
                             player.setCurrentDamage(0);
-                            io.put("\n" + "\u001B[31m" + "MONSTER");
+                            io.put("\n\n" + "\u001B[31m" + "MONSTER");
                             break;
                         }
                         else
@@ -127,8 +126,8 @@ public class GameCTRL implements Control
                             {
                                 player.setCurrentHealth(0);
                                 player.setCurrentDamage(0);
-                                io.put("\n" + "\u001B[31m" + "MONSTER");
-                                return;
+                                io.put("\n\n" + "\u001B[31m" + "MONSTER");
+                                break;
                             }
                             else
                             {
@@ -150,8 +149,8 @@ public class GameCTRL implements Control
                             {
                                 player.setCurrentHealth(0);
                                 player.setCurrentDamage(0);
-                                io.put("\n" + "\u001B[31m" + "MONSTER");
-                                return;
+                                io.put("\n\n" + "\u001B[31m" + "MONSTER");
+                                break;
                             }
                             else
                             {
@@ -173,8 +172,8 @@ public class GameCTRL implements Control
                             {
                                 player.setCurrentHealth(0);
                                 player.setCurrentDamage(0);
-                                io.put("\n" + "\u001B[31m" + "MONSTER");
-                                return;
+                                io.put("\n\n" + "\u001B[31m" + "MONSTER");
+                                break;
                             }
                             else
                             {
@@ -193,9 +192,8 @@ public class GameCTRL implements Control
                     default:
                         break;
             } 
-        mo.move();    
-        }
-        
+        mo.move();
+        }      
     }
     
     @Override

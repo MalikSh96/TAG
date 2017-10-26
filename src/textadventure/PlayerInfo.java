@@ -4,10 +4,7 @@ public class PlayerInfo
 {
     private String name;
     private int currentHealth = 100;
-    //private int maxHealth = startHealth;
     private int currentDamage = 10;
-    //private int maxDamage = startDamage;
-    //private int lostLife = 0;
     private RoomInfo currentposition;
         
     public PlayerInfo(String name, RoomInfo currentposition) 

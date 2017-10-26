@@ -4,7 +4,14 @@ import java.util.ArrayList;
 
 public class RoomDef
 {    
-    public void defRooms(ArrayList<RoomInfo> rooms)
+    private ArrayList<RoomInfo> rooms;
+
+    public RoomDef(ArrayList<RoomInfo> rooms) 
+    {
+        this.rooms = rooms;
+    }
+
+    public void defRooms()
     {     
         rooms.add(new RoomInfo("\nWelcome to the starting room, which is a safe spot" 
                 + "\nYes, somewhere nearby is colossal cave, where others have found fortunes in treasure and gold."
@@ -18,41 +25,41 @@ public class RoomDef
   
         rooms.add(new RoomInfo("\nWelcome into the entrance, be carefull, you may encounter hideous monsters ahead" 
                 + "\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                1, new Event(10, 20))); //room 2
+                1, new Event(0, 0))); //room 2
         
         rooms.add(new RoomInfo("\nWelcome to the pool room, you can go for a swim... or not" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                2, new Event(-20, -10))); //room 3
+                2, new Event(0, 0))); //room 3
         
         rooms.add(new RoomInfo("\nWelcome to the living room, there is an item on the floor, pick it up" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                3, new Event(-30, 40))); //room 4
+                3, new Event(0, 0))); //room 4
         
         rooms.add(new RoomInfo("\nWelcome to the bar, sit and grab a drink, but drinking may damage you" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                4, new Event(10, 10))); //room 5
+                4, new Event(0, 0))); //room 5
         
         rooms.add(new RoomInfo("\nWelcome to the bunny room, lots of cute bunnies, but harmful" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                5, new Event(-50, -30))); //room 6
+                5, new Event(0, 0))); //room 6
         
         rooms.add(new RoomInfo("\nWelcome to the magical room, this is where the magic happens, gains full health and a new items" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                6, new Event(50, 40))); //room 7
+                6, new Event(0, 0))); //room 7
         
         rooms.add(new RoomInfo("\nWelcome to the pillow fight room, lay down and relax, but you lose health no matter what" 
                 + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                7, new Event(-60, 10))); //room 8
+                7, new Event(0, 0))); //room 8
         
         rooms.add(new RoomInfo("\nWelcome to the dungeon, fight the demon to continue" 
                 + "\n\n" + "\u001B[31m" +"***FINAL BOSS FIGHT***",
-                8, new Event(-90, -40))); //room 9
+                8, new Event(0, 00))); //room 9
         
         rooms.add(new RoomInfo("\nWell... hello there seems like you have found the" 
                 + "\n" + "\u001B[31m" +"\u001B[31m" +  " BIG TREASURE!!! \n",
                 9, new Event(100, 100))); //room 10
 
-        //Directing the rooms to its respective neighbor
+        //Directing the rooms to its respective neighbor(s)
         //Starting room direction
         rooms.get(0).setNorth(rooms.get(1));
 
@@ -90,12 +97,12 @@ public class RoomDef
         rooms.get(8).setWest(rooms.get(9)); //room 9 west leads to room 10, WINNER
         rooms.get(8).setEast(rooms.get(7)); //room 9 east leads to room 8
         
+        //Final room direction only returns to the second to last room
+        rooms.get(9).setEast(rooms.get(8)); //room 10 east leads back to room 9
+        
+        
+        //adding items to the different rooms
         rooms.get(7).addItem(new Weapon("Sword", "Is a sword", 15));
         rooms.get(7).addItem(new Potion("potion","description", 10));
-    }
-    
-    public void theRooms(ArrayList<RoomInfo> rooms)
-    {
-        rooms.get(0);
     }
 }
