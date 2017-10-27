@@ -65,7 +65,19 @@ public class GameCTRL implements Control
             {
                 break; //stops the game if quit becomes true
             }
-                      
+            
+            //Ikke færdigt endnu
+            if(player.getCurrentposition().getItems().size() > 0){
+            for (items item : player.getCurrentposition().getItems()) {
+                io.put("You've stumbled upon an item! Do you want to pick it up ?" + player.getCurrentposition().getItems());
+            }
+            int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
+                player.getInv().add(player.getCurrentposition().getItems().get(pickUp));
+                player.getCurrentposition().getItems().remove(pickUp);
+            }
+            
+    
+               
             io.put("\nMake a choice player!");
             ArrayList<String> maze = new ArrayList<>();          
             io.put("\nYour name is: " + name + "\nYour current health is: " + player.getCurrentHealth()
@@ -252,6 +264,8 @@ public class GameCTRL implements Control
             e.printStackTrace();
         }
     }
+
+
     
     @Override
     public void printInfo()

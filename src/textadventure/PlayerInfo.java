@@ -1,11 +1,14 @@
 package textadventure;
 
+import java.util.ArrayList;
+
 public class PlayerInfo
 {
     private String name;
     private int currentHealth = 100;
     private int currentDamage = 10;
     private RoomInfo currentposition;
+    private ArrayList<items> inv = new ArrayList<>();
         
     public PlayerInfo(String name, RoomInfo currentposition) 
     {
@@ -52,5 +55,13 @@ public class PlayerInfo
     public void setCurrentHealth(int currentHealth) 
     {
         this.currentHealth = currentHealth;
+    }
+
+    public ArrayList<items> getInv() {
+        return inv;
+    }
+    
+    public void addToInv(items item){
+        inv.add(item);
     }
 }

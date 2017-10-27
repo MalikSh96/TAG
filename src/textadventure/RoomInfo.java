@@ -76,14 +76,8 @@ public class RoomInfo /*implements mazeRooms*/
         this.events = events;
     }  
 
-    void addWeapon(Weapon weapon) 
-    {
-       
-    }
-
-    void addPotion(Potion potion) 
-    {
-        
+    public ArrayList<items> getItems() {
+        return items;
     }
 
     public void addItem(items item) 

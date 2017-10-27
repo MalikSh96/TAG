@@ -104,5 +104,6 @@ public class RoomDef
         //adding items to the different rooms
         rooms.get(7).addItem(new Weapon("Sword", "Is a sword", 15));
         rooms.get(7).addItem(new Potion("potion","description", 10));
+        rooms.get(1).addItem(new Weapon("Sword", "can kill opponents", 10));
     }
 }
