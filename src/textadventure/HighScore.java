@@ -1,19 +1,17 @@
 package textadventure;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 //Gets the scores and sorts them, highscores are based of highest HP
+//JUnit tests confirms this works
 public class HighScore {
 
     private HashMap<String, Integer> scores = new HashMap<>();
-    //private ArrayList<Integer> score = new ArrayList<>();
-    //private ArrayList<String> score_names = new ArrayList<>(); //find out a solution to this
 
     public HighScore() 
     {
-        System.out.println("This is the highscores: ");
+        System.out.println("This is the highscores: ");   
     }
 
     public void addScore(String name, int score) 
@@ -22,7 +20,7 @@ public class HighScore {
     }
 
     public String getBestName() 
-    {
+    {   
         if (scores.isEmpty()) 
         {
             throw new IllegalStateException();

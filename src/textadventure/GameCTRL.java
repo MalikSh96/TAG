@@ -1,8 +1,15 @@
 package textadventure;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import textio.*;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //Where the gaming happens
 public class GameCTRL implements Control
@@ -15,7 +22,7 @@ public class GameCTRL implements Control
     @Override
     public void play() 
     {
-        io.put("***To sign in to play, enter name!***");
+        io.put("***To sign in to play the, please enter name!***");
         //Definition of rooms      
         RoomDef rd = new RoomDef(rooms);
         rd.defRooms();
@@ -99,7 +106,7 @@ public class GameCTRL implements Control
                         {
                             player.setCurrentHealth(0);
                             player.setCurrentDamage(0);
-                            io.put("\n\n" + "\u001B[31m" + "MONSTER");
+                            io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
                             break;
                         }
                         else
@@ -122,7 +129,7 @@ public class GameCTRL implements Control
                             {
                                 player.setCurrentHealth(0);
                                 player.setCurrentDamage(0);
-                                io.put("\n\n" + "\u001B[31m" + "MONSTER");
+                                io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
                                 break;
                             }
                             else
@@ -145,7 +152,7 @@ public class GameCTRL implements Control
                             {
                                 player.setCurrentHealth(0);
                                 player.setCurrentDamage(0);
-                                io.put("\n\n" + "\u001B[31m" + "MONSTER");
+                                io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
                                 break;
                             }
                             else
@@ -168,7 +175,7 @@ public class GameCTRL implements Control
                             {
                                 player.setCurrentHealth(0);
                                 player.setCurrentDamage(0);
-                                io.put("\n\n" + "\u001B[31m" + "MONSTER");
+                                io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
                                 break;
                             }
                             else
@@ -189,11 +196,61 @@ public class GameCTRL implements Control
                         break;
             } 
         mo.move();
-        }       
+        }
+        
         //Getting the scores and comparing them
         HighScore highscores = new HighScore();
         highscores.addScore(player.getName(), player.getCurrentHealth());
         System.out.println(highscores.getBestName() + ": " + highscores.getBestScore());
+        
+        //Our filewriting and reading
+        //Writing the file     
+        File newFile = new File("highscoreTAG.txt");
+        if(!newFile.exists())
+        {
+            try
+            {
+                newFile.createNewFile();
+                System.out.println("New file created");
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace(); 
+            }
+        }
+        else
+        {
+            System.out.println("The file with the highest score already exist");
+        }
+        
+        //Reading the file
+        try 
+        {
+            FileReader file = new FileReader("highscoreTAG.txt");
+            BufferedReader reader = new BufferedReader(file);
+        
+            String text = "";
+            String line = reader.readLine();
+            String[] parts = line.split(", ");
+            highscores.addScore(parts[0], Integer.parseInt(parts[1]));          
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        //Writing the file
+        try 
+        {
+            FileWriter fileW = new FileWriter(newFile);
+            BufferedWriter buffW = new BufferedWriter(fileW);
+            buffW.write(highscores.getBestName() + ", " + highscores.getBestScore());
+            buffW.close();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
     }
     
     @Override
@@ -229,13 +286,11 @@ public class GameCTRL implements Control
                 + "\u001B[34m" + "\nTo move w(est) input w" 
                 + "\u001B[34m" + "\nTo move e(ast) input e" 
                 + "\u001B[34m" + "\nIf you encounter an invalid choice, it might be because you have nothing at the direction you tried to input"
-                + "\u001B[34m" + "\n");*/ // <-- advanced help function 
+                + "\u001B[34m" + "\n");*/ // <-- advanced help function, might be used in the future 
         
         io.put("\n" + "\u001B[34m" + "Here is your hints" 
                 + "\u001B[34m" + "\nOn your screen, you see the possible choices you have"
                 + "\u001B[34m" + "\nInput the given choices to advance in the game"
                 + "\u001B[34m" + "\n");
-    }
-    
-    
+    } 
 }

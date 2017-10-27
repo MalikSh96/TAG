@@ -45,7 +45,7 @@ public class Monster
                 if(getCurrentPosition().getNorth() != null)
                 {
                     setCurrentPosition(getCurrentPosition().getNorth());
-                    System.out.println("\nMONSTER MOVED NORTH");
+                    //System.out.println("\nMONSTER MOVED NORTH"); <-- this checks where the monster moved
                     return true;
                 }
                 return false;
@@ -53,7 +53,7 @@ public class Monster
                 if(getCurrentPosition().getSouth() != null)
                 {
                     setCurrentPosition(getCurrentPosition().getSouth());
-                    System.out.println("\nMONSTER MOVED SOUTH");
+                    //System.out.println("\nMONSTER MOVED SOUTH"); <-- this checks where the monster moved
                     return true;
                 }
                 return false;
@@ -61,7 +61,7 @@ public class Monster
                 if(getCurrentPosition().getWest() != null)
                 {
                     setCurrentPosition(getCurrentPosition().getWest());
-                    System.out.println("\nMONSTER MOVED WEST");
+                    //System.out.println("\nMONSTER MOVED WEST"); <-- this checks where the monster moved
                     return true;
                 }
                 return false;
@@ -69,7 +69,7 @@ public class Monster
                 if(getCurrentPosition().getEast() != null)
                 {
                     setCurrentPosition(getCurrentPosition().getEast());
-                    System.out.println("\nMONSTER MOVED EAST");
+                    //System.out.println("\nMONSTER MOVED EAST"); <-- this checks where the monster moved
                     return true;
                 }
                 return false;
