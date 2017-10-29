@@ -57,11 +57,13 @@ public class PlayerInfo
         this.currentHealth = currentHealth;
     }
 
-    public ArrayList<items> getInv() {
+    public ArrayList<items> getInv() 
+    {
         return inv;
     }
     
-    public void addToInv(items item){
+    public void addToInv(items item)
+    {
         inv.add(item);
     }
 }

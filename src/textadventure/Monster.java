@@ -19,7 +19,7 @@ public class Monster
         this.history = history;
         this.currentPosition = currentPosition; 
     }
-  
+ 
     public void move()
     {    
         //io.put("\n\n***THIS IS A TEST IN THE MONSTER CLASS***"); <-- tests if we get into this method        
@@ -83,12 +83,10 @@ public class Monster
     {
         return name;
     }
-
     public String getHistory() 
     {
         return history;
     }
-
     public RoomInfo getCurrentPosition() 
     {
         return currentPosition;
@@ -99,12 +97,10 @@ public class Monster
     {
         this.name = name;
     }
-
     public void setHistory(String history) 
     {
         this.history = history;
     }
-
     public void setCurrentPosition(RoomInfo currentPosition) 
     {
         this.currentPosition = currentPosition;

@@ -76,7 +76,8 @@ public class RoomInfo /*implements mazeRooms*/
         this.events = events;
     }  
 
-    public ArrayList<items> getItems() {
+    public ArrayList<items> getItems() 
+    {
         return items;
     }
 

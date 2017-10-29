@@ -19,41 +19,34 @@ public class RoomDef
                 + "\nMagic is said to work in the cave."
                 + "\nyou are inside a building, a well house for a large spring"
                 + "\nThere are some keys on the ground here."
-                + "\nThis dungeon contains a BIG treasure, which has a lot of positive items and wishes, such as being eternal rich and alive" 
-                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
+                + "\nThis dungeon contains a BIG treasure, which has a lot of positive items and wishes, such as being eternal rich and alive",
                 0, new Event(0, 0))); //Starting room, which is room 1, Event(..., ...) conatains the life damage added/inflicted and the damage added/inflicted
   
-        rooms.add(new RoomInfo("\nWelcome into the entrance, be carefull, you may encounter hideous monsters ahead" 
-                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                1, new Event(10, 0))); //room 2
+        rooms.add(new RoomInfo("\nWelcome into the entrance, be carefull, further in this maze you may encounter hideous monsters, be ready and armed!",
+                1, new Event(15, 5))); //room 2
         
-        rooms.add(new RoomInfo("\nWelcome to the pool room, you can go for a swim... or not" 
-                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                2, new Event(20, 0))); //room 3
+        rooms.add(new RoomInfo("\nWelcome to the pool room, some say the water is safe, "
+                + "others say that the water contains radioactive chemicals which may affect your healt negatively"
+                + " only one way to find out...",
+                2, new Event(-20, 0))); //room 3
         
-        rooms.add(new RoomInfo("\nWelcome to the living room, there is an item on the floor, pick it up" 
-                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                3, new Event(-30, 0))); //room 4
+        rooms.add(new RoomInfo("\nWelcome to the living room, it was rumored that this was the room where the architects dissapeared",
+                3, new Event(-15, 0))); //room 4
         
-        rooms.add(new RoomInfo("\nWelcome to the bar, sit and grab a drink, but drinking may damage you" 
-                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                4, new Event(40, 0))); //room 5
+        rooms.add(new RoomInfo("\nWelcome to the bar, sit and grab a drink, reload yourself",
+                4, new Event(50, 15))); //room 5
         
-        rooms.add(new RoomInfo("\nWelcome to the bunny room, lots of cute bunnies, but harmful" 
-                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                5, new Event(-50, 0))); //room 6
+        rooms.add(new RoomInfo("\nWelcome to the bunny room, lots of cute bunnies, but harmful",
+                5, new Event(-35, -10))); //room 6
         
-        rooms.add(new RoomInfo("\nWelcome to the magical room, this is where the magic happens, gains full health and a new items" 
-                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                6, new Event(60, 0))); //room 7
+        rooms.add(new RoomInfo("\nWelcome to the magical room, this is where the magic happens, gaining health and acquiring new items",
+                6, new Event(60, 10))); //room 7
         
-        rooms.add(new RoomInfo("\nWelcome to the pillow fight room, lay down and relax, but you lose health no matter what" 
-                + "\n\n" + "\u001B[31m" +"***TYPE IN YOUR EVENT***",
-                7, new Event(80, 0))); //room 8
+        rooms.add(new RoomInfo("\nWelcome to the pillow fight room, lay down and relax, but as you relax a loss of health and damage infliction occurs",
+                7, new Event(-40, -10))); //room 8
         
-        rooms.add(new RoomInfo("\nWelcome to the dungeon, fight the demon to continue" 
-                + "\n\n" + "\u001B[31m" +"***FINAL BOSS FIGHT***",
-                8, new Event(-35, 00))); //room 9
+        rooms.add(new RoomInfo("\nWelcome to the dungeon, history of this dungeon is, that it is known to roam serious magic, and NOT the good kind of magic",
+                8, new Event(-50, -10))); //room 9
         
         rooms.add(new RoomInfo("\nWell... hello there seems like you have found the" 
                 + "\n" + "\u001B[31m" +"\u001B[31m" +  "BIG TREASURE!!! \n",
@@ -103,7 +96,7 @@ public class RoomDef
         
         //adding items to the different rooms
         rooms.get(7).addItem(new Weapon("Sword", "Is a sword", 15));
-        rooms.get(7).addItem(new Potion("potion","description", 10));
+        rooms.get(7).addItem(new Potion("Potion","Is potion", 10));
         rooms.get(1).addItem(new Weapon("Sword", "can kill opponents", 10));
     }
 }

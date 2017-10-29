@@ -8,8 +8,15 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import textio.*;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+/*
+IMPORT NOTE, WHEN PLAYING THE GAME FIRST TIME, AT THE END OF THE GAME, IF YOU FINISH IT, 
+A MESSAGE OF NULLPOINTER EXCEPTION WILL POP UP, DON'T WORRY ABOUT, IT IS ALL BECAUSE AT THE 
+START YOU DON'T HAVE A FILE, THEREFORE A NEW FILE WILL BE CREATED, AND THEN THAT ERROR WILL 
+DISSAPEAR AND NO LONGER BE THERE!
+SO SHORT, IF YOU DON'T HAVE A FILE CREATED, THEN A NEW FILE WILL BE CREATED, AND A NULLPOINTER EXCEPTION WILL OCCUR
+BUT AFTER THAT, WHEN THE FILE IS CREATED THE NULLPOINTER EXCEPTION IS GONE
+*/
 
 //Where the gaming happens
 public class GameCTRL implements Control
@@ -66,18 +73,18 @@ public class GameCTRL implements Control
                 break; //stops the game if quit becomes true
             }
             
-            //Ikke færdigt endnu
-            if(player.getCurrentposition().getItems().size() > 0){
-            for (items item : player.getCurrentposition().getItems()) {
-                io.put("You've stumbled upon an item! Do you want to pick it up ?" + player.getCurrentposition().getItems());
-            }
-            int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
+            //Items for the player
+            if(player.getCurrentposition().getItems().size() > 0)
+            {
+                for (items item : player.getCurrentposition().getItems()) 
+                {}
+                io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\nIput 0 if room contains 1 item, "
+                        + "and if the room contains 2 items input either 0 or 1, depending on which you wish to pick up" + player.getCurrentposition().getItems());
+                int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
                 player.getInv().add(player.getCurrentposition().getItems().get(pickUp));
                 player.getCurrentposition().getItems().remove(pickUp);
             }
-            
-    
-               
+  
             io.put("\nMake a choice player!");
             ArrayList<String> maze = new ArrayList<>();          
             io.put("\nYour name is: " + name + "\nYour current health is: " + player.getCurrentHealth()
@@ -305,6 +312,8 @@ public class GameCTRL implements Control
         io.put("\n" + "\u001B[34m" + "Here is your hints" 
                 + "\u001B[34m" + "\nOn your screen, you see the possible choices you have"
                 + "\u001B[34m" + "\nInput the given choices to advance in the game"
+                + "\u001B[34m" + "\nTo pick up the items input 0 or 1, depends on how many items the room has, if 1 item then input 0, "
+                + "if 2 items you can input 0 or 1"
                 + "\u001B[34m" + "\n");
     } 
 }
