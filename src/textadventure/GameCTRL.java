@@ -78,7 +78,7 @@ public class GameCTRL implements Control
             {
                 for (items item : player.getCurrentposition().getItems()) 
                 {}
-                io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\nIput 0 if room contains 1 item, "
+                io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\nInput 0 if room contains 1 item, "
                         + "and if the room contains 2 items input either 0 or 1, depending on which you wish to pick up" + player.getCurrentposition().getItems());
                 int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
                 player.getInv().add(player.getCurrentposition().getItems().get(pickUp));
