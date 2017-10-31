@@ -19,11 +19,11 @@ public class Monster
         this.history = history;
         this.currentPosition = currentPosition; 
     }
- 
+    
+    //Movement method for the big boss
     public void move()
     {    
         //io.put("\n\n***THIS IS A TEST IN THE MONSTER CLASS***"); <-- tests if we get into this method        
-
         int direction;
         while(true)
         {

@@ -13,6 +13,8 @@ public class RoomDef
 
     public void defRooms()
     {     
+        //If a room contains a monster, it events will the be nullified, ie. the room itself will NOT have an impact on the player if the room has a monster
+        
         rooms.add(new RoomInfo("\nWelcome to the starting room, which is a safe spot" 
                 + "\nYes, somewhere nearby is colossal cave, where others have found fortunes in treasure and gold."
                 + "\nThough it is rumored that some who enter are never seen again."
@@ -20,33 +22,33 @@ public class RoomDef
                 + "\nyou are inside a building, a well house for a large spring"
                 + "\nThere are some keys on the ground here."
                 + "\nThis dungeon contains a BIG treasure, which has a lot of positive items and wishes, such as being eternal rich and alive",
-                0, new Event(0, 0))); //Starting room, which is room 1, Event(..., ...) conatains the life damage added/inflicted and the damage added/inflicted
+                0, new Event(0, 0))); //Starting room, which is room 1, Event(..., ...) conatains the life damage added/inflicted and the damage added/reduced
   
         rooms.add(new RoomInfo("\nWelcome into the entrance, be carefull, further in this maze you may encounter hideous monsters, be ready and armed!",
-                1, new Event(15, 5))); //room 2
+                1, new Event(0, 10))); //room 2
         
         rooms.add(new RoomInfo("\nWelcome to the pool room, some say the water is safe, "
-                + "others say that the water contains radioactive chemicals which may affect your healt negatively"
+                + "others say that the water contains radioactive chemicals which may affect your health negatively"
                 + " only one way to find out...",
-                2, new Event(-20, 0))); //room 3
+                2, new Event(0, 0))); //room 3
         
         rooms.add(new RoomInfo("\nWelcome to the living room, it was rumored that this was the room where the architects dissapeared",
-                3, new Event(-15, 0))); //room 4
+                3, new Event(0, 0))); //room 4
         
         rooms.add(new RoomInfo("\nWelcome to the bar, sit and grab a drink, reload yourself",
-                4, new Event(50, 15))); //room 5
+                4, new Event(10, 5))); //room 5
         
-        rooms.add(new RoomInfo("\nWelcome to the bunny room, lots of cute bunnies, but harmful",
-                5, new Event(-35, -10))); //room 6
+        rooms.add(new RoomInfo("\nWelcome to the minion room, lots of cute minion, but they are very aggressive",
+                5, new Event(0, 0))); //room 6
         
         rooms.add(new RoomInfo("\nWelcome to the magical room, this is where the magic happens, gaining health and acquiring new items",
                 6, new Event(60, 10))); //room 7
         
         rooms.add(new RoomInfo("\nWelcome to the pillow fight room, lay down and relax, but as you relax a loss of health and damage infliction occurs",
-                7, new Event(-40, -10))); //room 8
+                7, new Event(10, -10))); //room 8
         
         rooms.add(new RoomInfo("\nWelcome to the dungeon, history of this dungeon is, that it is known to roam serious magic, and NOT the good kind of magic",
-                8, new Event(-50, -10))); //room 9
+                8, new Event(0, 0))); //room 9
         
         rooms.add(new RoomInfo("\nWell... hello there seems like you have found the" 
                 + "\n" + "\u001B[31m" +"\u001B[31m" +  "BIG TREASURE!!! \n",
@@ -95,8 +97,14 @@ public class RoomDef
         
         
         //adding items to the different rooms
-        rooms.get(7).addItem(new Weapon("Sword", "Is a sword", 15));
-        rooms.get(7).addItem(new Potion("Potion","Is potion", 10));
+        rooms.get(7).addItem(new Weapon("Sword, level 1", "Is a sword", 15));
+        rooms.get(0).addItem(new Potion("Potion","Is health potion", 10));
         rooms.get(1).addItem(new Weapon("Sword", "can kill opponents", 10));
+
+        //Adding minions to the different rooms, wit possibility of having loots on them
+        rooms.get(2).addMiniMonster(new MiniMonster("minion1", 20, -2, new Weapon("Knife", "Historic knife", 5)));
+        rooms.get(3).addMiniMonster(new MiniMonster("minion2", 20, -3, new Weapon("Sword level 2", "Upgrades your sword", 20)));
+        rooms.get(5).addMiniMonster(new MiniMonster("minion3", 40, -5, new Weapon("BLANK2", "EMPTY", 5)));
+        rooms.get(8).addMiniMonster(new MiniMonster("minion4", 80, -3, new Weapon("BLANK3", "EMPTY", 5)));      
     }
 }

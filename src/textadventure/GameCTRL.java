@@ -8,15 +8,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import textio.*;
 import java.util.Random;
-
-/*
-IMPORT NOTE, WHEN PLAYING THE GAME FIRST TIME, AT THE END OF THE GAME, IF YOU FINISH IT, 
-A MESSAGE OF NULLPOINTER EXCEPTION WILL POP UP, DON'T WORRY ABOUT, IT IS ALL BECAUSE AT THE 
-START YOU DON'T HAVE A FILE, THEREFORE A NEW FILE WILL BE CREATED, AND THEN THAT ERROR WILL 
-DISSAPEAR AND NO LONGER BE THERE!
-SO SHORT, IF YOU DON'T HAVE A FILE CREATED, THEN A NEW FILE WILL BE CREATED, AND A NULLPOINTER EXCEPTION WILL OCCUR
-BUT AFTER THAT, WHEN THE FILE IS CREATED THE NULLPOINTER EXCEPTION IS GONE
-*/
+import java.util.Scanner;
 
 //Where the gaming happens
 public class GameCTRL implements Control
@@ -82,6 +74,7 @@ public class GameCTRL implements Control
                         + "and if the room contains 2 items input either 0 or 1, depending on which you wish to pick up" + player.getCurrentposition().getItems());
                 int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
                 player.getInv().add(player.getCurrentposition().getItems().get(pickUp));
+                System.out.println("You picked up the following item(s): " + player.getCurrentposition().getItems());
                 player.getCurrentposition().getItems().remove(pickUp);
             }
   
@@ -128,6 +121,11 @@ public class GameCTRL implements Control
                             io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
                             break;
                         }
+                        else if(player.getCurrentposition().getMinions()!= null) //if the room contains a minion
+                        {
+                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n"); 
+                                //player.getCurrentposition().getMinions().Combat(player); <-- was for when the combat method were in MiniMonster                               
+                        }
                         else
                         {
                             player.getCurrentposition().getEvents().applyEvent(player);
@@ -150,6 +148,11 @@ public class GameCTRL implements Control
                                 player.setCurrentDamage(0);
                                 io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
                                 break;
+                            }
+                            else if(player.getCurrentposition().getMinions() != null)
+                            {
+                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n");
+                                //player.getCurrentposition().getMinions().Combat(player); <-- was for when the combat method were in MiniMonster
                             }
                             else
                             {
@@ -174,6 +177,11 @@ public class GameCTRL implements Control
                                 io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
                                 break;
                             }
+                            else if(player.getCurrentposition().getMinions() != null)
+                            {
+                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n");
+                                //player.getCurrentposition().getMinions().Combat(player); <-- was for when the combat method were in MiniMonster
+                            }
                             else
                             {
                                 player.getCurrentposition().getEvents().applyEvent(player);
@@ -196,6 +204,11 @@ public class GameCTRL implements Control
                                 player.setCurrentDamage(0);
                                 io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
                                 break;
+                            }
+                            else if(player.getCurrentposition().getMinions() != null)
+                            {
+                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n"); 
+                                //player.getCurrentposition().getMinions().Combat(player); <-- was for when the combat method were in MiniMonster
                             }
                             else
                             {
@@ -250,8 +263,11 @@ public class GameCTRL implements Control
         
             String text = "";
             String line = reader.readLine();
-            String[] parts = line.split(", ");
-            highscores.addScore(parts[0], Integer.parseInt(parts[1]));          
+            if(line != null)
+            {
+                String[] parts = line.split(", ");
+                highscores.addScore(parts[0], Integer.parseInt(parts[1]));          
+            }
         } 
         catch (Exception e) 
         {
@@ -272,7 +288,35 @@ public class GameCTRL implements Control
         }
     }
 
-
+    public void Combat(PlayerInfo player, MiniMonster minion) //work in progress
+    {       
+        boolean combat = false;
+        char comb = 'c';
+        
+        while(true)
+        {
+            io.put("\nMinion attacks you!");
+            player.setCurrentHealth(player.getCurrentHealth() + minion.getMinionDamage()); //The damage the minion inflicts on the player           
+            if(comb == 'c')
+            {
+                minion.setMinionLife(minion.getMinionLife() - player.getCurrentDamage()); //The damage the player inflicts on the minion
+                io.put("\nYou attacked the minion!");
+                break;
+            }        
+            if(player.getCurrentHealth() < 1)
+            {
+                io.put("\nYou died!");
+                //combat = false;
+                break;
+            }
+            else if(minion.getMinionLife() < 1)
+            {
+                io.put("\nYou managed to kill the minion!");
+                //combat = false;
+                break;
+            }
+        }       
+    }
     
     @Override
     public void printInfo()

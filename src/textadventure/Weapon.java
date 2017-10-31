@@ -1,6 +1,7 @@
 package textadventure;
 
-public class Weapon implements items{
+public class Weapon implements items
+{
     private String name;
     private String description;
     private int dmg;

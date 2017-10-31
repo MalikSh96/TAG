@@ -2,13 +2,14 @@ package textadventure;
 
 import java.util.ArrayList;
 
-public class RoomInfo /*implements mazeRooms*/
+public class RoomInfo
 {   
     private String roomEventText;
     private int roomNumber;
     private RoomInfo north, south, east, west;
     private Event events; 
     private ArrayList<items> items = new ArrayList<>();
+    private MiniMonster minions;
 
     RoomInfo(String roomEventText, int roomNumber, Event events) 
     {
@@ -84,5 +85,15 @@ public class RoomInfo /*implements mazeRooms*/
     public void addItem(items item) 
     {
        items.add(item);
+    }
+    
+    public void addMiniMonster(MiniMonster minions)
+    {
+        this.minions = minions;
+    }
+
+    public MiniMonster getMinions() 
+    {
+        return minions;
     }
 }
