@@ -12,6 +12,11 @@ public class Weapon implements items
         this.description = description;
         this.dmg = dmg;
     }
+    
+    public void addToPlayerDamage(PlayerInfo player)
+    {
+        player.setCurrentDamage(player.getCurrentDamage() + dmg);
+    }
 
     @Override
     public String getName() 

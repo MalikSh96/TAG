@@ -45,6 +45,7 @@ public class GameCTRL implements Control
         io.put(player.getCurrentposition().getRoomEventText() + "\n\nName is: " + name +  "\nYour health is: " + player.getCurrentHealth() 
                 + "\nThe damage you can inflict is: " + player.getCurrentDamage());
         
+        
         //Using a while loop to keep the game flowing until final destination is reached
         while(true)
         { 
@@ -73,11 +74,27 @@ public class GameCTRL implements Control
                 io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\nInput 0 if room contains 1 item, "
                         + "and if the room contains 2 items input either 0 or 1, depending on which you wish to pick up" + player.getCurrentposition().getItems());
                 int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
+                
                 player.getInv().add(player.getCurrentposition().getItems().get(pickUp));
+                //System.out.println(player.getInv().size()); <-- used to check
                 System.out.println("You picked up the following item(s): " + player.getCurrentposition().getItems());
-                player.getCurrentposition().getItems().remove(pickUp);
+                ArrayList<items> it = player.getCurrentposition().getItems();
+                for (items object : it) 
+                {
+                    player.addToInv(object);
+                    if(object instanceof Weapon)
+                    {
+                        ((Weapon)object).addToPlayerDamage(player);
+                    }
+                    else if(object instanceof Potion)
+                    {
+                        ((Potion)object).applyPotion(player);
+                    }
+                }
+                //System.out.println(player.getInv().size()); <-- used to check
+                player.getCurrentposition().getItems().remove(pickUp);              
             }
-  
+
             io.put("\nMake a choice player!");
             ArrayList<String> maze = new ArrayList<>();          
             io.put("\nYour name is: " + name + "\nYour current health is: " + player.getCurrentHealth()
@@ -123,8 +140,8 @@ public class GameCTRL implements Control
                         }
                         else if(player.getCurrentposition().getMinions()!= null) //if the room contains a minion
                         {
-                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n"); 
-                                //player.getCurrentposition().getMinions().Combat(player); <-- was for when the combat method were in MiniMonster                               
+                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n");                                
+                                combat(player, player.getCurrentposition().getMinions());
                         }
                         else
                         {
@@ -152,7 +169,7 @@ public class GameCTRL implements Control
                             else if(player.getCurrentposition().getMinions() != null)
                             {
                                 io.put("\u001B[31m" + "\n\nMINION IN HERE\n");
-                                //player.getCurrentposition().getMinions().Combat(player); <-- was for when the combat method were in MiniMonster
+                                combat(player, player.getCurrentposition().getMinions());
                             }
                             else
                             {
@@ -180,7 +197,7 @@ public class GameCTRL implements Control
                             else if(player.getCurrentposition().getMinions() != null)
                             {
                                 io.put("\u001B[31m" + "\n\nMINION IN HERE\n");
-                                //player.getCurrentposition().getMinions().Combat(player); <-- was for when the combat method were in MiniMonster
+                                combat(player, player.getCurrentposition().getMinions());
                             }
                             else
                             {
@@ -208,7 +225,7 @@ public class GameCTRL implements Control
                             else if(player.getCurrentposition().getMinions() != null)
                             {
                                 io.put("\u001B[31m" + "\n\nMINION IN HERE\n"); 
-                                //player.getCurrentposition().getMinions().Combat(player); <-- was for when the combat method were in MiniMonster
+                                combat(player, player.getCurrentposition().getMinions());
                             }
                             else
                             {
@@ -288,21 +305,34 @@ public class GameCTRL implements Control
         }
     }
 
-    public void Combat(PlayerInfo player, MiniMonster minion) //work in progress
+    public void combat(PlayerInfo player, MiniMonster minion) //work in progress
     {       
-        boolean combat = false;
-        char comb = 'c';
+        ArrayList<String> comb = new ArrayList<>();
+        comb.add("Attack");
+        comb.add("Passive");
         
         while(true)
         {
             io.put("\nMinion attacks you!");
             player.setCurrentHealth(player.getCurrentHealth() + minion.getMinionDamage()); //The damage the minion inflicts on the player           
-            if(comb == 'c')
+            
+            int attacking = io.select("\nDo you wish to attack?", comb, "Make a choice");
+            switch(comb.get(attacking))
             {
-                minion.setMinionLife(minion.getMinionLife() - player.getCurrentDamage()); //The damage the player inflicts on the minion
-                io.put("\nYou attacked the minion!");
-                break;
-            }        
+                case "Attack":
+                    minion.setMinionLife(minion.getMinionLife() - player.getCurrentDamage()); //The damage the player inflicts on the minion
+                    io.put("\nYou attacked the minion!"); 
+                    break;
+                case "Passive":
+                    io.put("\nYou stayed passive!");
+                    break;
+                default:
+                    break;  
+            }
+            
+            io.put("\nRemaining health of the minion: " + minion.getMinionLife());
+            io.put("\nYour remaining health:" + player.getCurrentHealth());
+            
             if(player.getCurrentHealth() < 1)
             {
                 io.put("\nYou died!");

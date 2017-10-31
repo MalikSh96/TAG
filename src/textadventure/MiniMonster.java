@@ -31,9 +31,14 @@ public class MiniMonster
     {
         inv.add(loot);
     }
+    
+    /*public void remiveLoot(Weapon loot)
+    {
+        inv.remove(loot);
+    }*/
 
     //Getters
-    public String getMinions() 
+    public String getMinion() 
     {
         return minions;
     }

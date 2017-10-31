@@ -43,20 +43,32 @@ public class GameCTRLTest {
         PlayerInfo player = new PlayerInfo("sdasd", rooms.get(0));
         MiniMonster minion = new MiniMonster("minion", 1, -5, new Weapon("Knife", "Historic knife", 5));
         
-        boolean combat = false;
-        char comb = 'c';
+         ArrayList<String> comb = new ArrayList<>();
+        comb.add("Attack");
+        comb.add("Passive");
         
         while(true)
         {
             io.put("\nMinion attacks you!");
-            player.setCurrentHealth(player.getCurrentHealth() + minion.getMinionDamage()); //The damage the minion inflicts on the player
-            minion.setMinionLife(minion.getMinionLife() - player.getCurrentDamage()); //The damage the player inflicts on the minion
-            /*if(comb == 'c')
+            player.setCurrentHealth(player.getCurrentHealth() + minion.getMinionDamage()); //The damage the minion inflicts on the player           
+            
+            int attacking = io.select("\nDo you wish to attack?", comb, "Make a choice");
+            switch(comb.get(attacking))
             {
-                
-                io.put("\nYou attacked the minion!");
-                break;
-            }*/         
+                case "Attack":
+                    minion.setMinionLife(minion.getMinionLife() - player.getCurrentDamage()); //The damage the player inflicts on the minion
+                    io.put("\nYou attacked the minion!"); 
+                    break;
+                case "Passive":
+                    io.put("\nYou stayed passive!");
+                    break;
+                default:
+                    break;  
+            }
+            
+            io.put("\nRemaining health of the minion: " + minion.getMinionLife());
+            io.put("\nYour remaining health:" + player.getCurrentHealth());
+            
             if(player.getCurrentHealth() < 1)
             {
                 io.put("\nYou died!");
