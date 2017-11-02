@@ -35,7 +35,7 @@ public class RoomDef
                 3, new Event(0, 0))); //room 4
         
         rooms.add(new RoomInfo("\nWelcome to the bar, sit and grab a drink, reload yourself",
-                4, new Event(20, 20))); //room 5
+                4, new Event(0, 0))); //room 5
         
         rooms.add(new RoomInfo("\nWelcome to the minion room, lots of cute minion, but they are very aggressive",
                 5, new Event(0, 0))); //room 6
@@ -50,7 +50,7 @@ public class RoomDef
                 8, new Event(0, 0))); //room 9
         
         rooms.add(new RoomInfo("\nWell... hello there seems like you have found the" 
-                + "\n" + "\u001B[31m" +"\u001B[31m" +  "BIG TREASURE!!! \n",
+                + "\n" + "\u001B[31m" + "\u001B[31m" +  "BIG TREASURE!!!\n",
                 9, new Event(100, 100))); //room 10
 
         //Directing the rooms to its respective neighbor(s)
@@ -101,13 +101,10 @@ public class RoomDef
         rooms.get(5).addItem(new Weapon("Sword level 1", "Use to kill opponents", 6));
 
         //Adding minions to the different rooms, wit possibility of having loots on them
-        /*rooms.get(1).addMiniMonster(new MiniMonster("minion1", 20, -2, new Weapon("Knife", "Historic knife", 5)));
-        rooms.get(2).addMiniMonster(new MiniMonster("minion2", 20, -3, new Weapon("Sword level 2", "Upgrades your sword", 20)));
-        rooms.get(3).addMiniMonster(new MiniMonster("minion3", 40, -5, new Weapon("BLANK2", "EMPTY", 5)));
-        rooms.get(4).addMiniMonster(new MiniMonster("minion4", 80, -3, new Weapon("BLANK3", "EMPTY", 5))); 
-        rooms.get(5).addMiniMonster(new MiniMonster("minion4", 80, -3, new Weapon("BLANK3", "EMPTY", 5)));
-        rooms.get(6).addMiniMonster(new MiniMonster("minion4", 80, -3, new Weapon("BLANK3", "EMPTY", 5))); 
-        rooms.get(7).addMiniMonster(new MiniMonster("minion4", 80, -3, new Weapon("BLANK3", "EMPTY", 5))); 
-        rooms.get(8).addMiniMonster(new MiniMonster("minion4", 80, -3, new Weapon("BLANK3", "EMPTY", 5))); */
+        rooms.get(1).addMiniMonster(new MiniMonster("minion1", 20, -2, new Weapon("Knife", "Historic knife", 5)));
+        rooms.get(3).addMiniMonster(new MiniMonster("minion2", 20, -3, new Weapon("Sword level 2", "Upgrades your level 1 sword", 20)));
+        rooms.get(5).addMiniMonster(new MiniMonster("minion3", 40, -5, new Weapon("Baseball bat", "Can be used to damage opponent", 5)));
+        rooms.get(7).addMiniMonster(new MiniMonster("minion4", 80, -3)); //The minion in this room has no item on it
+        rooms.get(8).addMiniMonster(new MiniMonster("minion4", 80, -1, new Weapon("", "", 0)));
     }
 }

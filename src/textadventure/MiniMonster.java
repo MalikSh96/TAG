@@ -8,34 +8,36 @@ public class MiniMonster
     private int minionLife;
     private int minionDamage;
     private ArrayList<items> inv = new ArrayList();
+    private Weapon loot;
 
     public MiniMonster(String minions, int life, int damage, Weapon loot) 
     {
         this.minions = minions;
         this.minionLife = life;
         this.minionDamage = damage;
+        this.loot = loot;
+        addMinionLoot(loot);
         
-        if (loot != null)
-        {
-            addMinionLoot(loot);
-        }
+    }
+
+    public MiniMonster(String minions, int minionLife, int minionDamage) 
+    {
+        this.minions = minions;
+        this.minionLife = minionLife;
+        this.minionDamage = minionDamage;
     }
     
-    /*public void Combat(PlayerInfo player) //work in progress, moved into GameCTRL
-    {
-        player.setCurrentHealth(player.getCurrentHealth() + minionDamage); //The damage the minion inflicts on the player
-        setMinionLife(getMinionLife() - player.getCurrentDamage()); //The damage the player inflicts on the minion
-    }*/
     
+
     public void addMinionLoot(Weapon loot)
     {
         inv.add(loot);
     }
     
-    /*public void remiveLoot(Weapon loot)
+    public void removeInv(Weapon loot)
     {
         inv.remove(loot);
-    }*/
+    }
 
     //Getters
     public String getMinion() 
@@ -52,10 +54,22 @@ public class MiniMonster
     {
         return minionDamage;
     }
+
+    public Weapon getLoot() 
+    {
+        return loot;
+    }
+
+    public ArrayList<items> getInv() 
+    {
+        return inv;
+    }
     
+    
+
     //Setters
     public void setMinionLife(int minionLife) 
     {
         this.minionLife = minionLife;
-    }   
+    }  
 }

@@ -17,7 +17,7 @@ public class Weapon implements items
     {
         player.setCurrentDamage(player.getCurrentDamage() + dmg);
     }
-
+    
     @Override
     public String getName() 
     {

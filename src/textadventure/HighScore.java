@@ -5,13 +5,13 @@ import java.util.Map;
 
 //Gets the scores and sorts them, highscores are based of highest HP
 //JUnit tests confirms this works
-public class HighScore {
-
+public class HighScore 
+{
     private HashMap<String, Integer> scores = new HashMap<>();
 
     public HighScore() 
     {
-        System.out.println("This is the highscores: ");   
+        
     }
 
     public void addScore(String name, int score) 
@@ -21,7 +21,7 @@ public class HighScore {
 
     public String getBestName() 
     {   
-        if (scores.isEmpty()) 
+        if(scores.isEmpty()) 
         {
             throw new IllegalStateException();
         }
@@ -30,12 +30,12 @@ public class HighScore {
         int bestScore = Integer.MIN_VALUE;
         for(Map.Entry<String, Integer> entry : scores.entrySet()) 
         {
-            if (bestName == null) 
+            if(bestName == null) 
             {
                 bestName = entry.getKey();
                 bestScore = entry.getValue();
             }
-            if (entry.getValue() > bestScore) 
+            if(entry.getValue() > bestScore) 
             {
                 bestName = entry.getKey();
                 bestScore = entry.getValue();
@@ -46,7 +46,7 @@ public class HighScore {
 
     public int getBestScore() 
     {
-        if (scores.isEmpty()) 
+        if(scores.isEmpty()) 
         {
             throw new IllegalStateException();
         }
@@ -55,12 +55,12 @@ public class HighScore {
         int bestScore = Integer.MIN_VALUE;
         for(Map.Entry<String, Integer> entry : scores.entrySet()) 
         {
-            if (bestName == null) 
+            if(bestName == null) 
             {
                 bestName = entry.getKey();
                 bestScore = entry.getValue();
             }
-            if (entry.getValue() > bestScore) 
+            if(entry.getValue() > bestScore) 
             {
                 bestName = entry.getKey();
                 bestScore = entry.getValue();

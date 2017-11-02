@@ -1,14 +1,8 @@
 package textadventure;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import textio.*;
 import java.util.Random;
-import java.util.Scanner;
 
 //Where the gaming happens
 public class GameCTRL implements Control
@@ -19,33 +13,54 @@ public class GameCTRL implements Control
     private Random rnd = new Random(); //to randomize the startlocation of the monster
 
     @Override
-    public void play() 
+    public void GameCentral() 
     {
-        io.put("***To sign in to play the, please enter name!***");
-        //Definition of rooms      
+        io.put("********************To sign in to play the game, please enter name!********************");
+        //Gets RoomDef, where the description of the rooms are     
         RoomDef rd = new RoomDef(rooms);
         rd.defRooms();
-        Monster mo = new Monster("MONSTERNAME", "HISTORY", rooms.get(rnd.nextInt(8) +2));
+        //Gets the Monster class and creates a new instance of it
+        Monster mo = new Monster("\u001B[31m" + "BigBoss", "\u001B[31m" + "The story behind BigBoss is, that BigBoss was the first ever to enter this dungeon. "
+                + "\u001B[31m" + "\nBigBoss decided to visit the dungeon because he heard rumors that there was a big treasure hiding."
+                + "\u001B[31m" + "\nBigBoss went into the dungeon, and that was the last we heard of BigBoss."
+                + "\u001B[31m" + "\nSome say that this very day BigBoss is still walking in the dungeon searching for the treasure, and will kill everyone that gets in BigBoss' way"
+                + "\u001B[31m" + "\nOur advice is to avoid BigBoss no matter what, the strenght of BigBoss is enormous, and you don't want to witness it" + "\u001B[31m", rooms.get(rnd.nextInt(8) +2));
+        //Gets the PlayerInfo class and creates a new instance of it
         PlayerInfo player = new PlayerInfo(io.get(), rooms.get(0));
-        
         //Introduction to the game
         io.put("\u001B[31m" + "Welcome to adventure!\n"); 
         //Prints info about the game
-        printInfo();
-        
+        GameInfo();
+        //BigBoss' history gets printed to the screen
+        io.put("\n" + mo.getHistory() + "\n\n");       
         //Signing in to play the game
-        io.put("Enter gamertag please");
-        String name = io.get();
-        io.put("Welcome " + name + ", we are looking forward to play with you\n");
+        io.put("Welcome " + player.getName() + ", we are looking forward to play with you\n");
         io.put("\nEnter age");
         int age = io.getInteger();
-        io.put("you are " + age + "\n");
-        
+        io.put("you are " + age + "\n");        
         //The game starts here
-        io.put(player.getCurrentposition().getRoomEventText() + "\n\nName is: " + name +  "\nYour health is: " + player.getCurrentHealth() 
-                + "\nThe damage you can inflict is: " + player.getCurrentDamage());
-        
-        
+        io.put(player.getCurrentposition().getRoomEventText() + "\n\nName is: " + player.getName() +  "\nYour health is: " + player.getCurrentHealth() 
+                + "\nThe damage you can inflict is: " + player.getCurrentDamage());      
+        //Getting the Play method for the player, the Play method contains other methods in it too
+        Play(player, mo);      
+        //Getting the HighScore class and creates a new instance of it
+        HighScore highscores = new HighScore();
+        if(!quit) //to make sure that if the player decides to quit, he score doesn't count
+        {
+            io.put("\nThis is the highscores: ");   
+            highscores.addScore(player.getName(), player.getCurrentHealth());
+            System.out.println(highscores.getBestName() + ": " + highscores.getBestScore());
+            //Getting TheFILE class
+            TheFILE file = new TheFILE();
+            file.FILE(highscores);
+        }      
+    }
+    
+    
+    //OUR MEHTODS USED ABOVE, IS CREATED BELOW HERE
+    //Play method, includes our compass and move method
+    public void Play(PlayerInfo player, Monster mo)
+    {
         //Using a while loop to keep the game flowing until final destination is reached
         while(true)
         { 
@@ -64,42 +79,17 @@ public class GameCTRL implements Control
             if(quit == true)
             {
                 break; //stops the game if quit becomes true
-            }
-            
-            //Items for the player
-            if(player.getCurrentposition().getItems().size() > 0)
-            {
-                for (items item : player.getCurrentposition().getItems()) 
-                {}
-                io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\nInput 0 if room contains 1 item, "
-                        + "and if the room contains 2 items input either 0 or 1, depending on which you wish to pick up" + player.getCurrentposition().getItems());
-                int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
-                
-                player.getInv().add(player.getCurrentposition().getItems().get(pickUp));
-                //System.out.println(player.getInv().size()); <-- used to check
-                System.out.println("You picked up the following item(s): " + player.getCurrentposition().getItems());
-                ArrayList<items> it = player.getCurrentposition().getItems();
-                for (items object : it) 
-                {
-                    player.addToInv(object);
-                    if(object instanceof Weapon)
-                    {
-                        ((Weapon)object).addToPlayerDamage(player);
-                    }
-                    else if(object instanceof Potion)
-                    {
-                        ((Potion)object).applyPotion(player);
-                    }
-                }
-                //System.out.println(player.getInv().size()); <-- used to check
-                player.getCurrentposition().getItems().remove(pickUp);              
-            }
-
+            }           
+            //Getting the PickItems method to use in the Play method
+            PickItems(player);  
+            //Lets the user know he can make a choice
             io.put("\nMake a choice player!");
-            ArrayList<String> maze = new ArrayList<>();          
-            io.put("\nYour name is: " + name + "\nYour current health is: " + player.getCurrentHealth()
-                    + "\nThe damage you can inflict is: " + player.getCurrentDamage() + "\n");
-            
+            //Creating a maze which contains our directions
+            ArrayList<String> maze = new ArrayList<>();
+            //Prints info to the player
+            io.put("\nYour name is: " + player.getName() + "\nYour current health is: " + player.getCurrentHealth()
+                    + "\nThe damage you can inflict is: " + player.getCurrentDamage() + "\n");            
+            //Adding our directions into the ArrayList
             if(player.getCurrentposition().getNorth() != null)
             {
                 maze.add("North");
@@ -117,207 +107,84 @@ public class GameCTRL implements Control
                 maze.add("East");
             }
             maze.add("Help");
-            maze.add("Quit");
-            
+            maze.add("Quit"); 
+            //Adding our created maze into a select, that displays our choices
             int result = io.select("You have these choices", maze, "What is your choice?");
+            //Using a switch statement to make use o our choices
             switch(maze.get(result)) 
             {
                 case "North":
-                    if (player.getCurrentposition().getNorth() == null) 
-                    {
-                        io.put("Invalid choice, try input a new one\n");
-                    } 
-                    else 
-                    {
                         player.setCurrentposition(player.getCurrentposition().getNorth());
                         io.put(player.getCurrentposition().getRoomEventText());
-                        if(mo.getCurrentPosition() == player.getCurrentposition())
-                        {
-                            player.setCurrentHealth(0);
-                            player.setCurrentDamage(0);
-                            io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
-                            break;
-                        }
-                        else if(player.getCurrentposition().getMinions()!= null) //if the room contains a minion
-                        {
-                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n");                                
-                                combat(player, player.getCurrentposition().getMinions());
-                        }
-                        else
-                        {
-                            player.getCurrentposition().getEvents().applyEvent(player);
-                        }
-                    }
-                    break;
-                    
-                case "South":
-                        if (player.getCurrentposition().getSouth() == null) 
-                        {
-                            //io.put("Invalid choice, try input a new one\n"); <--NOT USED
-                        } 
-                        else 
-                        {
-                            player.setCurrentposition(player.getCurrentposition().getSouth());
-                            io.put(player.getCurrentposition().getRoomEventText());
-                            if(mo.getCurrentPosition() == player.getCurrentposition())
-                            {
-                                player.setCurrentHealth(0);
-                                player.setCurrentDamage(0);
-                                io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
-                                break;
-                            }
-                            else if(player.getCurrentposition().getMinions() != null)
-                            {
-                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n");
-                                combat(player, player.getCurrentposition().getMinions());
-                            }
-                            else
-                            {
-                                player.getCurrentposition().getEvents().applyEvent(player);
-                            }
-                        }
-                    break;
-                    
+                        CheckEnemy(player, mo);
+                    break;                  
+                case "South":                  
+                        player.setCurrentposition(player.getCurrentposition().getSouth());
+                        io.put(player.getCurrentposition().getRoomEventText());
+                        CheckEnemy(player, mo);
+                    break;                   
                 case "West":
-                        if (player.getCurrentposition().getWest() == null) 
-                        {
-                            //io.put("Invalid choice, try input a new one\n"); <--NOT USED ?
-                        } 
-                        else 
-                        {
-                            player.setCurrentposition(player.getCurrentposition().getWest());
-                            io.put(player.getCurrentposition().getRoomEventText());
-                            if(mo.getCurrentPosition() == player.getCurrentposition())
-                            {
-                                player.setCurrentHealth(0);
-                                player.setCurrentDamage(0);
-                                io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
-                                break;
-                            }
-                            else if(player.getCurrentposition().getMinions() != null)
-                            {
-                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n");
-                                combat(player, player.getCurrentposition().getMinions());
-                            }
-                            else
-                            {
-                                player.getCurrentposition().getEvents().applyEvent(player);
-                            }
-                        }
-                        break;
-                        
-                    case "East":
-                        if (player.getCurrentposition().getEast() == null)
-                        {
-                            //io.put("Invalid choice, try input a new one\n"); <--NOT USED?
-                        } 
-                        else 
-                        {
-                            player.setCurrentposition(player.getCurrentposition().getEast());
-                            io.put(player.getCurrentposition().getRoomEventText()); 
-                            if(mo.getCurrentPosition() == player.getCurrentposition())
-                            {
-                                player.setCurrentHealth(0);
-                                player.setCurrentDamage(0);
-                                io.put("\n\n" + "\u001B[31m" + "MONSTER KILLED YOU");
-                                break;
-                            }
-                            else if(player.getCurrentposition().getMinions() != null)
-                            {
-                                io.put("\u001B[31m" + "\n\nMINION IN HERE\n"); 
-                                combat(player, player.getCurrentposition().getMinions());
-                            }
-                            else
-                            {
-                                player.getCurrentposition().getEvents().applyEvent(player);
-                            }
-                        }
-                        break;
-                    case "Help":
+                        player.setCurrentposition(player.getCurrentposition().getWest());
+                        io.put(player.getCurrentposition().getRoomEventText());    
+                        CheckEnemy(player, mo);
+                    break;                       
+                case "East":
+                        player.setCurrentposition(player.getCurrentposition().getEast());
+                        io.put(player.getCurrentposition().getRoomEventText());     
+                        CheckEnemy(player, mo);
+                    break;
+                case "Help":
                         help();
-                        break;
-                        
-                    case "Quit":
+                    break;                      
+                case "Quit":
                         io.put("\u001B[31m" + "You have chosen to quit the game\n");
-                        return;
-                        
-                    default:
-                        break;
-            } 
+                        quit = true;
+                    return;                       
+                default:
+                    break;
+            }
+        //Getting the movement method for the BigBoss, which is allowed to move around after the player makes a choice    
         mo.move();
         }
-        
-        //Getting the scores and comparing them
-        HighScore highscores = new HighScore();
-        highscores.addScore(player.getName(), player.getCurrentHealth());
-        System.out.println(highscores.getBestName() + ": " + highscores.getBestScore());
-        
-        //Our filewriting and reading
-        //Writing the file     
-        File newFile = new File("highscoreTAG.txt");
-        if(!newFile.exists())
+    }
+    
+    //Items method
+    public void PickItems(PlayerInfo player)
+    {
+        //Items for the player
+        if(player.getCurrentposition().getItems().size() > 0)
         {
-            try
-            {
-                newFile.createNewFile();
-                System.out.println("New file created");
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace(); 
-            }
-        }
-        else
-        {
-            System.out.println("The file with the highest score already exist");
-        }
-        
-        //Reading the file
-        try 
-        {
-            FileReader file = new FileReader("highscoreTAG.txt");
-            BufferedReader reader = new BufferedReader(file);
-        
-            String text = "";
-            String line = reader.readLine();
-            if(line != null)
-            {
-                String[] parts = line.split(", ");
-                highscores.addScore(parts[0], Integer.parseInt(parts[1]));          
-            }
-        } 
-        catch (Exception e) 
-        {
-            e.printStackTrace();
-        }
-        
-        //Writing the file
-        try 
-        {
-            FileWriter fileW = new FileWriter(newFile);
-            BufferedWriter buffW = new BufferedWriter(fileW);
-            buffW.write(highscores.getBestName() + ", " + highscores.getBestScore());
-            buffW.close();
-        } 
-        catch (Exception e) 
-        {
-            e.printStackTrace();
+            //Prints out that the player has a choice of picking up an item
+            io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\nInput 0 if room contains 1 item, "
+                    + "and if the room contains 2 items input either 0 or 1, depending on which you wish to pick up" 
+                    + player.getCurrentposition().getItems());
+            int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
+            //Gets the inventory and adds the pickup into it
+            player.getInv().add(player.getCurrentposition().getItems().get(pickUp));
+            //System.out.println(player.getInv().size()); <-- used to check
+            System.out.println("You picked up the following item(s): " + player.getCurrentposition().getItems().get(pickUp));
+            player.getCurrentposition().getItems().remove(pickUp);              
         }
     }
-
-    public void combat(PlayerInfo player, MiniMonster minion) //work in progress
+    
+    //Combat method
+    public void Combat(PlayerInfo player, MiniMonster minion)
     {       
-        ArrayList<String> comb = new ArrayList<>();
-        comb.add("Attack");
-        comb.add("Passive");
-        
+        //Creating a combat ArrayList to add our options
+        ArrayList<String> combat = new ArrayList<>();
+        //Adding our options
+        combat.add("Attack");
+        combat.add("Passive");
+        //Using a while(true) to keep to combat going until either the player og enemy dies
         while(true)
         {
             io.put("\nMinion attacks you!");
+            //Takes the players current health and the minions damage to substract from the players current healt
             player.setCurrentHealth(player.getCurrentHealth() + minion.getMinionDamage()); //The damage the minion inflicts on the player           
-            
-            int attacking = io.select("\nDo you wish to attack?", comb, "Make a choice");
-            switch(comb.get(attacking))
+            //Creating a menu for the player if he decides to attack or stay passive, staying passive DOES allow the enemy to attack you
+            int attacking = io.select("\nDo you wish to attack?", combat, "Make a choice");
+            //Using a switch statement to choose between our options
+            switch(combat.get(attacking))
             {
                 case "Attack":
                     minion.setMinionLife(minion.getMinionLife() - player.getCurrentDamage()); //The damage the player inflicts on the minion
@@ -328,28 +195,76 @@ public class GameCTRL implements Control
                     break;
                 default:
                     break;  
-            }
-            
+            }         
             io.put("\nRemaining health of the minion: " + minion.getMinionLife());
-            io.put("\nYour remaining health:" + player.getCurrentHealth());
-            
+            io.put("\nYour remaining health:" + player.getCurrentHealth());           
+            //If the player dies this happens
             if(player.getCurrentHealth() < 1)
             {
-                io.put("\nYou died!");
-                //combat = false;
+                io.put("\nThe minion killed you!");
                 break;
             }
-            else if(minion.getMinionLife() < 1)
+            //If the minion dies and contains loot, this happens
+            if(minion.getMinionLife() < 1 && minion.getInv().size() > 0)
+            {
+                ArrayList<items> monsterloot = new ArrayList<>();
+                io.put("\nYou managed to kill the minion"
+                    + "\nThe minion dropped some loot "
+                    + minion.getInv()
+                    + "\nIf you wish to pick up the loot type 1, else leave it behind by typing any other NUMBER than 1.");
+                int loot = io.getInteger();
+                //If input is 1, the loot gets picked up
+                if(loot == 1)
+                {
+                    player.addToInv(minion.getLoot());
+                    io.put("You've picked up: " + minion.getLoot());
+                    minion.removeInv(minion.getLoot());
+                    player.getCurrentposition().addMiniMonster(null); //setting it to null, so that when the minion gets killed it gets removed from the room
+                    break;
+                } 
+                //If the player decides to leave it behind, this happens
+                else
+                {
+                   io.put("You've decided to leave the item behind.");
+                   minion.removeInv(minion.getLoot());
+                   player.getCurrentposition().addMiniMonster(null); //setting it to null, so that when the minion gets killed it gets removed from the room
+                   break;
+                }                  
+            }
+            //If the minion dies and it doesn't contain loot, this happens
+            if(minion.getMinionLife() < 1)
             {
                 io.put("\nYou managed to kill the minion!");
-                //combat = false;
                 break;
             }
-        }       
+        }
+    }
+    
+    //Checking if the room contains an enemy
+    public void CheckEnemy(PlayerInfo player, Monster mo)
+    {
+        //If BigBoss' current position is the same as the players, the players health is set to 0, which kills the player and ends the game
+        if(mo.getCurrentPosition() == player.getCurrentposition())
+        {
+            player.setCurrentHealth(0);
+            player.setCurrentDamage(0);
+            io.put("\n\n" + "\u001B[31m" + "BigBoss killed you!");
+        }
+        //If the players current position contains an enemy(minion) this here happen
+        else if(player.getCurrentposition().getMinions()!= null) //if the room contains a minion
+        {
+            io.put("\u001B[31m" + "\n\nMINION IN HERE\n");                                
+            Combat(player, player.getCurrentposition().getMinions());
+        }
+        //Else if none of the above happens the player moves "safely" around
+        else
+        {
+            player.getCurrentposition().getEvents().applyEvent(player);
+        }
     }
     
     @Override
-    public void printInfo()
+    public void GameInfo()
     {
         //Prints the info at the beginning of the game
         //Using the color blue to difference from the room descriptions
@@ -372,17 +287,6 @@ public class GameCTRL implements Control
     @Override
     public void help()
     {
-        //If the player inputs the character i, these hints pops up
-        //Using the color blue to difference from the room descriptions
-        /*io.put("\u001B[34m" + "You need help?" 
-                + "\u001B[34m" + "\nHere is your hints" 
-                + "\u001B[34m" + "\nTo move n(orth)" 
-                + "\u001B[34m" + "\nTo move s(outh) input s" 
-                + "\u001B[34m" + "\nTo move w(est) input w" 
-                + "\u001B[34m" + "\nTo move e(ast) input e" 
-                + "\u001B[34m" + "\nIf you encounter an invalid choice, it might be because you have nothing at the direction you tried to input"
-                + "\u001B[34m" + "\n");*/ // <-- advanced help function, might be used in the future 
-        
         io.put("\n" + "\u001B[34m" + "Here is your hints" 
                 + "\u001B[34m" + "\nOn your screen, you see the possible choices you have"
                 + "\u001B[34m" + "\nInput the given choices to advance in the game"

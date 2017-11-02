@@ -36,14 +36,15 @@ public class GameCTRLTest {
     }
 
     @Test
-    public void testCombat() {
+    public void testCombat() 
+    {
         RoomDef rd = new RoomDef(rooms);
         rd.defRooms();
         Monster mo = new Monster("MONSTERNAME", "HISTORY", rooms.get(rnd.nextInt(8) +2));
         PlayerInfo player = new PlayerInfo("sdasd", rooms.get(0));
         MiniMonster minion = new MiniMonster("minion", 1, -5, new Weapon("Knife", "Historic knife", 5));
         
-         ArrayList<String> comb = new ArrayList<>();
+        ArrayList<String> comb = new ArrayList<>();
         comb.add("Attack");
         comb.add("Passive");
         
@@ -53,6 +54,10 @@ public class GameCTRLTest {
             player.setCurrentHealth(player.getCurrentHealth() + minion.getMinionDamage()); //The damage the minion inflicts on the player           
             
             int attacking = io.select("\nDo you wish to attack?", comb, "Make a choice");
+            //String[] comba;
+            /*comba[0] = "a";
+            comba[1] = "b";*/
+            
             switch(comb.get(attacking))
             {
                 case "Attack":
