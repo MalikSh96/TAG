@@ -51,9 +51,10 @@ public class TheFILE
         //Writing the file
         try 
         {
-            FileWriter fileW = new FileWriter(newFile);
+            FileWriter fileW = new FileWriter(newFile, true);
             BufferedWriter buffW = new BufferedWriter(fileW);
             buffW.write(highscores.getBestName() + ", " + highscores.getBestScore());
+            buffW.newLine();
             buffW.close();
         } 
         catch (Exception e) 

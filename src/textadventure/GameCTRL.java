@@ -152,11 +152,11 @@ public class GameCTRL implements Control
     public void PickItems(PlayerInfo player)
     {
         //Items for the player
-        if(player.getCurrentposition().getItems().size() > 0)
+        /*if(player.getCurrentposition().getItems().size() > 0)
         {
-            //Prints out that the player has a choice of picking up an item
+            //Prints out that the player has a choice of picking up an item_Items
             io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\nInput 0 if room contains 1 item, "
-                    + "and if the room contains 2 items input either 0 or 1, depending on which you wish to pick up" 
+                    + "and if the room contains 2 item_Items input either 0 or 1, depending on which you wish to pick up" 
                     + player.getCurrentposition().getItems());
             int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
             //Gets the inventory and adds the pickup into it
@@ -164,7 +164,37 @@ public class GameCTRL implements Control
             //System.out.println(player.getInv().size()); <-- used to check
             System.out.println("You picked up the following item(s): " + player.getCurrentposition().getItems().get(pickUp));
             player.getCurrentposition().getItems().remove(pickUp);              
-        }
+        }*/
+        
+            ArrayList<items> item_Items = player.getCurrentposition().getItems();
+            int pickUp = 1;
+            while (item_Items.size() > 0 && pickUp != 0) {
+                
+                io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\n");
+
+                ArrayList<String> options = new ArrayList();
+                options.add("Nothing");
+
+                for (int i = 0; i < item_Items.size(); i++) 
+                {
+                    options.add(item_Items.get(i).getName());
+                }
+                options.add("All");
+
+                pickUp = io.select("Here are the options you can chose from ", options, "");
+                if (pickUp == options.size() - 1) 
+                {
+                    //all
+                }
+                else if (pickUp > 0) 
+                {
+                    player.getInv().add(item_Items.get(pickUp - 1));
+                    io.put("You have picked up the following: " + item_Items.get(pickUp -1));
+                    item_Items.remove(pickUp - 1);
+                }
+            }
+        
+        
     }
     
     //Combat method

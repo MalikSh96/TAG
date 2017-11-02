@@ -54,10 +54,6 @@ public class GameCTRLTest {
             player.setCurrentHealth(player.getCurrentHealth() + minion.getMinionDamage()); //The damage the minion inflicts on the player           
             
             int attacking = io.select("\nDo you wish to attack?", comb, "Make a choice");
-            //String[] comba;
-            /*comba[0] = "a";
-            comba[1] = "b";*/
-            
             switch(comb.get(attacking))
             {
                 case "Attack":
