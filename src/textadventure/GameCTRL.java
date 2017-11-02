@@ -151,50 +151,33 @@ public class GameCTRL implements Control
     //Items method
     public void PickItems(PlayerInfo player)
     {
-        //Items for the player
-        /*if(player.getCurrentposition().getItems().size() > 0)
-        {
-            //Prints out that the player has a choice of picking up an item_Items
-            io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\nInput 0 if room contains 1 item, "
-                    + "and if the room contains 2 item_Items input either 0 or 1, depending on which you wish to pick up" 
-                    + player.getCurrentposition().getItems());
-            int pickUp = io.getInteger(0, player.getCurrentposition().getItems().size());
-            //Gets the inventory and adds the pickup into it
-            player.getInv().add(player.getCurrentposition().getItems().get(pickUp));
-            //System.out.println(player.getInv().size()); <-- used to check
-            System.out.println("You picked up the following item(s): " + player.getCurrentposition().getItems().get(pickUp));
-            player.getCurrentposition().getItems().remove(pickUp);              
-        }*/
-        
-            ArrayList<items> item_Items = player.getCurrentposition().getItems();
-            int pickUp = 1;
-            while (item_Items.size() > 0 && pickUp != 0) {
-                
-                io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\n");
-
-                ArrayList<String> options = new ArrayList();
-                options.add("Nothing");
-
-                for (int i = 0; i < item_Items.size(); i++) 
-                {
-                    options.add(item_Items.get(i).getName());
-                }
-                options.add("All");
-
-                pickUp = io.select("Here are the options you can chose from ", options, "");
-                if (pickUp == options.size() - 1) 
-                {
-                    //all
-                }
-                else if (pickUp > 0) 
-                {
-                    player.getInv().add(item_Items.get(pickUp - 1));
-                    io.put("You have picked up the following: " + item_Items.get(pickUp -1));
-                    item_Items.remove(pickUp - 1);
-                }
+        //Items for the player        
+        ArrayList<items> item_Items = player.getCurrentposition().getItems();
+        int pickUp = 1;
+        while(item_Items.size() > 0 && pickUp != 0) 
+        {       
+            io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\n");
+            ArrayList<String> options = new ArrayList();
+            options.add("Nothing");
+            for(int i = 0; i < item_Items.size(); i++) 
+            {
+                options.add(item_Items.get(i).getName());
             }
-        
-        
+            options.add("All");
+
+            pickUp = io.select("Here are the options you can choose from ", options, "");
+            if(pickUp == options.size() - 1) 
+            {
+                io.put("\nYou picked it all up!\n");
+                item_Items.clear(); //clears the room for items
+            }
+            else if(pickUp > 0) 
+            {
+                player.getInv().add(item_Items.get(pickUp - 1));
+                io.put("You have picked up the following: " + item_Items.get(pickUp -1) + "\n");
+                item_Items.remove(pickUp - 1);
+            }
+        }
     }
     
     //Combat method
@@ -238,7 +221,7 @@ public class GameCTRL implements Control
             if(minion.getMinionLife() < 1 && minion.getInv().size() > 0)
             {
                 ArrayList<items> monsterloot = new ArrayList<>();
-                io.put("\nYou managed to kill the minion"
+                io.put("\nYou managed to kill the minion!\n"
                     + "\nThe minion dropped some loot "
                     + minion.getInv()
                     + "\nIf you wish to pick up the loot type 1, else leave it behind by typing any other NUMBER than 1.");
@@ -264,7 +247,8 @@ public class GameCTRL implements Control
             //If the minion dies and it doesn't contain loot, this happens
             if(minion.getMinionLife() < 1)
             {
-                io.put("\nYou managed to kill the minion!");
+                io.put("\nYou managed to kill the minion!\n");
+                player.getCurrentposition().addMiniMonster(null); //setting it to null, so that when the minion gets killed it gets removed from the room
                 break;
             }
         }
