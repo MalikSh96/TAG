@@ -9,6 +9,7 @@ public class PlayerInfo
     private int currentDamage = 10;
     private RoomInfo currentposition;
     private ArrayList<items> inv = new ArrayList<>();
+    private ArrayList<items> equipped = new ArrayList<>();
         
     public PlayerInfo(String name, RoomInfo currentposition) 
     {
@@ -66,4 +67,22 @@ public class PlayerInfo
     {
         inv.add(item);
     }
+    
+    public void addToEquip(items item){
+        if(item instanceof Weapon){
+            setCurrentDamage(currentDamage + item.Effect());
+            equipped.add(item);
+            inv.remove(item);
+        }
+        if(item instanceof Potion){
+            setCurrentHealth(currentHealth + item.Effect());
+            inv.remove(item);
+        }
+        
+    }
+
+    public ArrayList<items> getEquipped() {
+        return equipped;
+    }
+    
 }

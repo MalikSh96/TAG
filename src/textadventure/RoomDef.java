@@ -97,7 +97,7 @@ public class RoomDef
         
         //adding items to the different rooms
         rooms.get(1).addItem(new Weapon("Sword", "Is a sword", 3));
-        rooms.get(1).addItem(new Potion("Potion","Is health potion", 5));
+        rooms.get(1).addItem(new Potion("Potion","Is health potion", 10));
         rooms.get(5).addItem(new Weapon("Sword level 1", "Use to kill opponents", 6));
 
         //Adding minions to the different rooms, wit possibility of having loots on them

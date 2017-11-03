@@ -11,6 +11,8 @@ public class GameCTRL implements Control
     private TextIO io = new TextIO(new SysTextIO());
     private boolean quit = false; //false at start to be able to play the game
     private Random rnd = new Random(); //to randomize the startlocation of the monster
+//    private Potion pot = new Potion("Life", "gives life", 10);
+//    private Weapon wep = new Weapon("Sword", "is sword", 5);
 
     @Override
     public void GameCentral() 
@@ -106,6 +108,7 @@ public class GameCTRL implements Control
             {
                 maze.add("East");
             }
+            maze.add("View Inventory");
             maze.add("Help");
             maze.add("Quit"); 
             //Adding our created maze into a select, that displays our choices
@@ -133,6 +136,20 @@ public class GameCTRL implements Control
                         io.put(player.getCurrentposition().getRoomEventText());     
                         CheckEnemy(player, mo);
                     break;
+                case "View Inventory":
+                    if(!player.getInv().isEmpty()){
+                    ArrayList<String> inventory = new ArrayList<>();
+                    for (int i = 0; i < player.getInv().size(); i++) {
+                        inventory.add(player.getInv().get(i).getName());
+                    }
+                    int cho = io.select("This is your inventory", inventory, "What do you want to do ?");
+                    
+                    if(player.getInv().get(cho) instanceof items){
+                        player.addToEquip(player.getInv().get(cho));
+                    }}
+                    else{
+                    io.put("you dont have any items in you inventory");
+                    }
                 case "Help":
                         help();
                     break;                      
@@ -301,7 +318,7 @@ public class GameCTRL implements Control
     @Override
     public void help()
     {
-        io.put("\n" + "\u001B[34m" + "Here is your hints" 
+        io.put("\n" + "\u001B[34m" + "Here are your hints" 
                 + "\u001B[34m" + "\nOn your screen, you see the possible choices you have"
                 + "\u001B[34m" + "\nInput the given choices to advance in the game"
                 + "\u001B[34m" + "\nTo pick up the items input 0 or 1, depends on how many items the room has, if 1 item then input 0, "

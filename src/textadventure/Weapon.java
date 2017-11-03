@@ -40,4 +40,9 @@ public class Weapon implements items
     {
         return "Weaponname: " + name + ", description: " + description + ", dmg: " + dmg;
     }  
+
+    @Override
+    public int Effect() {
+        return dmg;
+    }
 }

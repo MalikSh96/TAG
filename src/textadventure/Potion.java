@@ -38,4 +38,9 @@ public class Potion implements items
     {
         return "Potiondescription: " + description + ", health:" + hlt;
     }
+
+    @Override
+    public int Effect() {
+       return hlt;
+    }
 }
