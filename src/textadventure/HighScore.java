@@ -9,11 +9,6 @@ public class HighScore
 {
     private HashMap<String, Integer> scores = new HashMap<>();
 
-    public HighScore() 
-    {
-        
-    }
-
     public void addScore(String name, int score) 
     {
         scores.put(name, score);
@@ -67,5 +62,10 @@ public class HighScore
             }
         }
         return bestScore;
+    }
+    
+    public HashMap<String, Integer> getScores() 
+    {
+        return scores;
     }
 }

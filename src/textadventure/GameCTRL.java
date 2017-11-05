@@ -11,8 +11,6 @@ public class GameCTRL implements Control
     private TextIO io = new TextIO(new SysTextIO());
     private boolean quit = false; //false at start to be able to play the game
     private Random rnd = new Random(); //to randomize the startlocation of the monster
-//    private Potion pot = new Potion("Life", "gives life", 10);
-//    private Weapon wep = new Weapon("Sword", "is sword", 5);
 
     @Override
     public void GameCentral() 
@@ -137,19 +135,8 @@ public class GameCTRL implements Control
                         CheckEnemy(player, mo);
                     break;
                 case "View Inventory":
-                    if(!player.getInv().isEmpty()){
-                    ArrayList<String> inventory = new ArrayList<>();
-                    for (int i = 0; i < player.getInv().size(); i++) {
-                        inventory.add(player.getInv().get(i).getName());
-                    }
-                    int cho = io.select("This is your inventory", inventory, "What do you want to do ?");
-                    
-                    if(player.getInv().get(cho) instanceof items){
-                        player.addToEquip(player.getInv().get(cho));
-                    }}
-                    else{
-                    io.put("you dont have any items in you inventory");
-                    }
+                        Invent(player);
+                    break;
                 case "Help":
                         help();
                     break;                      
@@ -175,7 +162,7 @@ public class GameCTRL implements Control
         {       
             io.put("\n\nYou've stumbled upon an item! Do you want to pick it up?\n");
             ArrayList<String> options = new ArrayList();
-            options.add("Nothing");
+            options.add("Nothing");           
             for(int i = 0; i < item_Items.size(); i++) 
             {
                 options.add(item_Items.get(i).getName());
@@ -183,7 +170,7 @@ public class GameCTRL implements Control
             options.add("All");
 
             pickUp = io.select("Here are the options you can choose from ", options, "");
-            if(pickUp == options.size() - 1) 
+            if(pickUp == options.size() - 1) //Using the function "all" doesn't add ANYTHING to the inventory
             {
                 io.put("\nYou picked it all up!\n");
                 item_Items.clear(); //clears the room for items
@@ -255,7 +242,7 @@ public class GameCTRL implements Control
                 //If the player decides to leave it behind, this happens
                 else
                 {
-                   io.put("You've decided to leave the item behind.");
+                   io.put("You've decided to leave the item behind!\n");
                    minion.removeInv(minion.getLoot());
                    player.getCurrentposition().addMiniMonster(null); //setting it to null, so that when the minion gets killed it gets removed from the room
                    break;
@@ -291,6 +278,35 @@ public class GameCTRL implements Control
         else
         {
             player.getCurrentposition().getEvents().applyEvent(player);
+        }
+    }
+    
+    //Checking and adding to the inventory
+    public void Invent(PlayerInfo player)
+    {
+        ArrayList<String> inventory = new ArrayList<>();
+        if(!player.getInv().isEmpty())
+        {
+            for(int i = 0; i < player.getInv().size(); i++)
+            {
+                inventory.add(player.getInv().get(i).getName());
+            }  
+            inventory.add("Exit");
+
+            int cho = io.select("\nThis is your inventory", inventory, "What do you want to do?"); 
+            if(cho == inventory.size() -1)
+            {
+                io.put("\nYou exited your inventory!\n");
+            }
+            else if(player.getInv().get(cho) instanceof items)
+            {
+                io.put("\nYou have equipped the item you chose!\n");
+                player.addToEquip(player.getInv().get(cho));
+            }
+        }
+        else
+        {
+            io.put("\nYou currently don't have any items in you inventory!\n");
         }
     }
     

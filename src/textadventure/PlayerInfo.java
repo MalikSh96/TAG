@@ -68,21 +68,23 @@ public class PlayerInfo
         inv.add(item);
     }
     
-    public void addToEquip(items item){
-        if(item instanceof Weapon){
+    public void addToEquip(items item)
+    {
+        if(item instanceof Weapon)
+        {
             setCurrentDamage(currentDamage + item.Effect());
             equipped.add(item);
             inv.remove(item);
         }
-        if(item instanceof Potion){
+        if(item instanceof Potion)
+        {
             setCurrentHealth(currentHealth + item.Effect());
             inv.remove(item);
-        }
-        
+        }       
     }
 
-    public ArrayList<items> getEquipped() {
+    public ArrayList<items> getEquipped() 
+    {
         return equipped;
     }
-    
 }
